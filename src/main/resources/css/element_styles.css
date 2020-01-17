@@ -23,15 +23,14 @@ body {
   text-decoration: none;
   font-size: 1.5vw;
   color: black;
+  background-color: #DFCFBE;
   text-shadow: 1px 1px 3px #D2B48C, 2px 2px 4px brown;
   font-family: 'Bowlby One SC', cursive;
-  width: 30%;
-  background-color: #DFCFBE;
-  margin: 5px 34%;
   border-right: 3px solid;
   border-left: 3px solid;
   border-color: rosybrown #333 rosybrown #333;
   border-radius: 20px;
+  margin: 5px 40%;
 }
 
 .adding_link {
@@ -44,10 +43,12 @@ body {
   border-bottom: 1px solid;
   border-color: #333 #333 #333 #333;
   border-radius: 20px;
-  padding: 2% 7% 0 7%;
+  padding: 1% 0 1% 0;
   background-color: olive;
   font-family: 'Bowlby One SC', cursive;
   text-shadow: 0 0 3px #D2B48C, 0 0 3px white;;
+  text-align: center;
+  display: block;
 }
 
 .my_item_link {
@@ -60,10 +61,12 @@ body {
   border-bottom: 1px solid;
   border-color: black #333 black #333;
   border-radius: 20px;
-  padding: 2% 7% 0 7%;
   background-color: darkgoldenrod;
   font-family: 'Bowlby One SC', cursive;
   text-shadow: 0 0 3px #D2B48C, 0 0 9px white;;
+  display: block;
+  padding: 1% 0 1% 0;
+  text-align: center;
 }
 
 .edit_link {
@@ -73,6 +76,12 @@ body {
   font-size: 1.2vw;
   font-family: 'Bowlby One SC', cursive;
   color: black;
+  background-color: peru;
+  border-top: black 3px solid;
+  border-bottom: black 3px solid;
+  border-left: black 1px solid;
+  border-right: black 1px solid;
+  letter-spacing: 2px;
 }
 
 .guest_link {
@@ -80,8 +89,8 @@ body {
   font-size: 1.4vw;
   font-family: 'Bowlby One SC', cursive;
   border-radius: 20px;
-  padding-right: 1%;
-  padding-left: 1%;
+  padding-right: 3%;
+  padding-left: 3%;
   height: 40px;
   width: 40%;
   background: none;
@@ -136,6 +145,7 @@ body {
   border-radius: 20px;
   font-size: 1.3vw;
   font-family: "Constantia", sans-serif;
+  border: wheat 1px solid;
 }
 
 .offer_input {
@@ -143,16 +153,27 @@ body {
   border-radius: 20px;
   font-size: 1.3vw;
   font-family: "Constantia", sans-serif;
-  width: 70%;
+  border: whitesmoke 1px solid;
 }
 
 .adding_input {
   background-color: burlywood;
   border-radius: 20px;
   font-family: "Constantia", sans-serif;
-  font-size: 1.2vw;
+  font-size: 1.3vw;
+  height: 30px;
   width: 100%;
-  height: 35px;
+  border: whitesmoke 1px solid;
+}
+
+.adding_textarea {
+  background-color: burlywood;
+  border-radius: 20px;
+  font-family: "Constantia", sans-serif;
+  font-size: 1.3vw;
+  width: 99%;
+  resize: none;
+  border: whitesmoke 1px solid;
 }
 
 fieldset {
@@ -161,8 +182,8 @@ fieldset {
 }
 
 .registration_button {
-  height: 40px;
-  width: 40%;
+  height: 45px;
+  width: 35%;
   background: none;
   border: 2px solid wheat;
   border-radius: 20px;
@@ -172,16 +193,20 @@ fieldset {
 }
 
 .offer_button {
-  width: 20%;
-  background-color: #D2B48C;
-  border-top: darkgoldenrod 1px solid;
-  border-bottom: darkgoldenrod 1px solid;
-  border-left: darkgoldenrod 3px solid;
-  border-right: darkgoldenrod 3px solid;
+  width: 80%;
+  background-color: peru;
+  border-top: black 1px solid;
+  border-bottom: black 1px solid;
+  border-left: black 3px solid;
+  border-right: black 3px solid;
   border-radius: 20px;
-  font-size: 1.3vw;
-  letter-spacing: 1px;
   font-family: 'Bowlby One SC', cursive;
+  font-size: 1.2vw;
+  letter-spacing: 1px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5px;
+  color: black;
 }
 
 .adding_button {
@@ -199,7 +224,6 @@ fieldset {
 }
 
 table {
-  text-align: center;
   background-color: peru;
   width: 98%;
   border-collapse: collapse;
@@ -211,7 +235,7 @@ table {
 
 .cell_header {
   letter-spacing: 1px;
-  font-size: 1.3vw;
+  font-size: 1.4vw;
   text-shadow: 1px 1px 3px white;
   font-family: 'Bangers', cursive;
   padding: 5px;
@@ -222,11 +246,12 @@ table {
   background-color: #D2B48C;
   border-radius: 50px;
   font-size: 1.1vw;
-  font-family: "Bernard MT Condensed", cursive;
+  font-family: "Constantia", sans-serif;
+  max-width: 50px;
+  word-wrap: break-word;
 }
 
 .new_offer_cell {
-  background-color: #D2B48C;
   border-radius: 50px;
   font-family: "Bernard MT Condensed", cursive;
 }
@@ -235,7 +260,7 @@ table {
   text-align: left;
 }
 
-.login_panel{
+.login_panel {
   border: 3px solid;
   border-radius: 40px;
   margin-left: 30%;
@@ -253,6 +278,20 @@ input.invalid {
 }
 
 input.valid {
+  background-color: #32CD32;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+}
+
+textarea.invalid {
+  background-color: red;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+}
+
+textarea.valid {
   background-color: #32CD32;
   border-radius: 20px;
   font-size: 1.3vw;

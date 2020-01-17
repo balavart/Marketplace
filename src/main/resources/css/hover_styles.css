@@ -18,12 +18,12 @@ table:hover caption {
   color: brown;
   font-size: 5vw;
   transition: 1s;
-
+  letter-spacing: 0;
 }
 
 p:hover label {
   color: #E94B3C;
-  font-size: 1.6vw;
+  font-size: 1.56vw;
   transition: 0.5s;
 }
 
@@ -36,14 +36,15 @@ p:hover button {
   border-left: 2px #612A05 solid;
   border-bottom: none;
   border-top: none;
+  letter-spacing: 1px;
 }
 
 .guest_link:hover {
   background-color: mistyrose;
   color: rgb(85, 26, 139);
-  font-size: 1.6vw;
-  transition: .6s;
+  transition: .4s;
   border: 3px rosybrown solid;
+  letter-spacing: 1px;
 }
 
 tr:hover .cell {
@@ -81,57 +82,66 @@ h1:hover {
 .navigation_link:hover {
   background-color: mistyrose;
   color: rgb(85, 26, 139);
-  font-size: 1.9vw;
-  transition: .7s;
-  border-color: rosybrown;
+  transition: .5s;
+  border-color: mediumpurple;
+  margin-left: 38.5%;
+  margin-right: 38.5%;
+  letter-spacing: 1px;
 }
 
 .offer_button:hover {
   background-color: wheat;
   border-color: darkolivegreen;
   color: darkgreen;
-  transition: .5s;
+  transition: .3s;
+  letter-spacing: 2px;
+  margin-left: 8.5%;
+  margin-right: 8.5%;
+  width: 85%;
 }
 
 .adding_link:hover {
   color: olive;
   background-color: wheat;
-  transition: .5s;
-  font-size: 1.3vw;
+  transition: .3s;
   border-left: 3px green solid;
   border-right: 3px green solid;
-  border-top: none;
-  border-bottom: none;
+  border-top: 1px green solid;
+  border-bottom: 1px green solid;
   text-shadow: 0 0 9px white, 0 0 9px green;;
+  letter-spacing: 1px;
 }
 
 .my_item_link:hover {
   color: #6E6E20;
   background-color: wheat;
-  transition: .5s;
-  font-size: 1.3vw;
+  transition: .3s;
   border-left: 3px #B2B202 solid;
   border-right: 3px #B2B202 solid;
-  border-bottom: none;
-  border-top: none;
+  border-top: 1px #B2B202 solid;
+  border-bottom: 1px #B2B202 solid;
   text-shadow: 0 0 9px yellow, 0 0 9px white;
+  letter-spacing: 1px;
 }
 
 .edit_link:hover {
-  transition: .5s;
-  font-size: 1.3vw;
+  transition: .3s;
   color: darkslategray;
   background-color: wheat;
-  border-right: 4px darkolivegreen solid;
-  border-left: 4px darkolivegreen solid;
-  border-top: 0;
-  border-bottom: 0;
+  border-right: 1px darkolivegreen solid;
+  border-left: 1px darkolivegreen solid;
+  border-top: 3px darkolivegreen solid;
+  border-bottom: 3px darkolivegreen solid;
   text-shadow: 0 0 3px white, 0 0 6px whitesmoke;
+  padding: 1% 35% 1% 35%;
 }
 
 .adding_button:hover {
-  font-size: 1.3vw;
   color: darkslategray;
   background-color: burlywood;
   transition: .5s;
+  width: 22%;
+  margin-right: 44%;
+  margin-left: 44%;
+  letter-spacing: 3px;
 }
