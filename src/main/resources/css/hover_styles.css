@@ -27,8 +27,8 @@ p:hover label {
   transition: 0.5s;
 }
 
-p:hover button {
-  background-color: burlywood;
+.registration-button:hover {
+  background-color: wheat;
   font-size: 1.5vw;
   transition: .3s;
   color: black;

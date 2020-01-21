@@ -11,6 +11,7 @@
   <link href="../css/element_styles.css" rel="stylesheet">
   <link href="../css/text_styles.css" rel="stylesheet">
   <link href="../css/hover_styles.css" rel="stylesheet">
+  <link href="../css/modal_style.css" rel="stylesheet">
 
   <script src="../js/adding_form_validation.js" type="text/javascript"></script>
   <script src="../js/elements_change.js" type="text/javascript"></script>
@@ -68,7 +69,7 @@
     <tbody>
 
     <tr>
-      <form action="#" autocomplete="off" enctype="text/plain" method="post" name="adding_form">
+      <form action="#" autocomplete="off" enctype="text/plain" method="post"  name="adding_form">
         <td class="cell"></td>
         <td class="cell">
           <label for="sale">
@@ -113,7 +114,7 @@
     <tr>
       <td colspan="6">
         <button class="adding_button" type="reset">Reset</button>
-        <button class="adding_button" type="submit">Confirm</button>
+        <button class="adding_button" type="submit" id="dataSendButton">Confirm</button>
       </td>
     </tr>
     </tfoot>
@@ -130,6 +131,35 @@
 <footer class="footer"><p class="footer_text">Developed by student Balaian Vardan Ⓢ 2020</p>
 </footer>
 
+<!-- The Modal -->
+<div class="modal" id="wrongFillingModal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="wrongMessage">There are errors in filling out the form.</p>
+
+
+    <div class="modal-footer">
+      <button class="registration-button" id="exitButton" type="button">Exit</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="warningModal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="warningMessage">Are you sure you want to add bargaining: <span id="saleTitle"></span></p>
+
+    <div class="modal-footer">
+      <button class="registration-button" id="confirmButton" type="button">OK</button>
+      <button class="registration-button" id="negativeButton" type="button">Cancel</button>
+    </div>
+
+  </div>
+</div>
 </body>
 
 </html>

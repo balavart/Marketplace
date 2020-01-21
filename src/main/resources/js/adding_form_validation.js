@@ -15,6 +15,8 @@ function init() {
   document.adding_form.description.onchange = descriptionOnChange;
   document.adding_form.startprice.onchange = startpriceOnChange;
   document.adding_form.onsubmit = onsubmitHandler;
+  var sendBtn = document.getElementById("dataSendButton");
+  sendBtn.onclick = onsubmitHandler;
 }
 
 /**
@@ -56,10 +58,79 @@ function startpriceOnChange() {
   validate(this, pattern);
 }
 
+function invalidFilling() {
+
+// Get the modal
+  var modal = document.getElementById("wrongFillingModal");
+  modal.style.display = "block";
+
+  // Get the button that opens the modal
+  var exitBtn = document.getElementById("exitButton");
+
+  // Get the <span> element that closes the modal
+  var span = modal.getElementsByClassName("close")[0];
+
+  exitBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
+}
+
+function warning(enteredSaleTitle) {
+
+// Get the modal
+  var modal = document.getElementById("warningModal");
+  modal.style.display = "block";
+
+  var saleTitle = document.getElementById("saleTitle");
+  saleTitle.innerHTML = enteredSaleTitle;
+
+  // Get the button that opens the modal
+  var okBtn = document.getElementById("confirmButton");
+  var cancelBtn = document.getElementById("negativeButton");
+
+  // Get the <span> element that closes the modal
+  var span = modal.getElementsByClassName("close")[0];
+
+  okBtn.onclick = function () {
+    modal.style.display = "none";
+    document.forms.adding_form.submit();
+  };
+
+  cancelBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
+}
+
 /**
  * event when a form is submitted to the server.
  */
-function onsubmitHandler() {
+function onsubmitHandler(event) {
+  event.preventDefault();
+
   var invalid = false;
 
   for (var i = 0; i < document.adding_form.elements.length; ++i) {
@@ -73,13 +144,9 @@ function onsubmitHandler() {
   }
 
   if (invalid) {
-    alert("There are errors in filling out the form.");
-    return false;
+    invalidFilling();
+  } else {
+    warning(document.adding_form.sale.value);
   }
-
-  var saleTitle = document.adding_form.sale.value;
-  return confirm(
-      "Are you sure you want to add bargaining:" + " \" " + saleTitle + " \" "
-      + "?");
 }
 
