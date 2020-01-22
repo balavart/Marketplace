@@ -1,0 +1,299 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-image: url("pictures/brick_wal.jpg");
+  background-color: #D2B48C;
+  width: 100%;
+  min-width: 850px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.content {
+  flex-grow: 1;
+  display: block;
+}
+
+.navigation_link {
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.5vw;
+  color: black;
+  background-color: #DFCFBE;
+  text-shadow: 1px 1px 3px #D2B48C, 2px 2px 4px brown;
+  font-family: 'Bowlby One SC', cursive;
+  border-right: 3px solid;
+  border-left: 3px solid;
+  border-color: rosybrown #333 rosybrown #333;
+  border-radius: 20px;
+  margin: 5px 40%;
+}
+
+.adding_link {
+  text-decoration: none;
+  font-size: 1.2vw;
+  color: black;
+  border-left: 3px solid;
+  border-right: 3px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #333 #333 #333 #333;
+  border-radius: 20px;
+  padding: 1% 0 1% 0;
+  background-color: olive;
+  font-family: 'Bowlby One SC', cursive;
+  text-shadow: 0 0 3px #D2B48C, 0 0 3px white;;
+  text-align: center;
+  display: block;
+}
+
+.my_item_link {
+  text-decoration: none;
+  font-size: 1.2vw;
+  color: black;
+  border-left: 3px solid;
+  border-right: 3px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: black #333 black #333;
+  border-radius: 20px;
+  background-color: darkgoldenrod;
+  font-family: 'Bowlby One SC', cursive;
+  text-shadow: 0 0 3px #D2B48C, 0 0 9px white;;
+  display: block;
+  padding: 1% 0 1% 0;
+  text-align: center;
+}
+
+.edit_link {
+  padding: 0 35% 0 35%;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 1.2vw;
+  font-family: 'Bowlby One SC', cursive;
+  color: black;
+  background-color: peru;
+  border-top: black 3px solid;
+  border-bottom: black 3px solid;
+  border-left: black 1px solid;
+  border-right: black 1px solid;
+  letter-spacing: 2px;
+}
+
+.guest_link {
+  text-decoration: none;
+  font-size: 1.4vw;
+  font-family: 'Bowlby One SC', cursive;
+  border-radius: 20px;
+  padding-right: 3%;
+  padding-left: 3%;
+  height: 40px;
+  width: 40%;
+  background: none;
+  border: 2px solid wheat;
+  color: darkslateblue;
+}
+
+.image_text_panel_decor {
+  width: 100%;
+  height: 620px;
+  padding: 10px 0 10px 0;
+  background: none;
+  margin-top: 2%;
+}
+
+.pic_panel_decor {
+  width: 20%;
+  float: left;
+  height: 600px;
+}
+
+.pic_left_panel_decor {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.text_panel_decor {
+  margin: 0 10px 0 10px;
+  float: left;
+  border-radius: 20px;
+  width: 52%;
+  height: 610px;
+  background-color: rosybrown;
+  padding: 10px;
+  border: 3px solid #333;
+  border-right: none;
+  border-left: none;
+  overflow: auto;
+}
+
+.footer {
+  text-align: left;
+  width: 100%;
+  background: #5A3E36;
+  border-radius: 20px;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.user_data_input {
+  background-color: burlywood;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+  border: wheat 1px solid;
+}
+
+.offer_input {
+  background-color: burlywood;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+  border: whitesmoke 1px solid;
+}
+
+.adding_input {
+  background-color: burlywood;
+  border-radius: 20px;
+  font-family: "Constantia", sans-serif;
+  font-size: 1.3vw;
+  height: 30px;
+  width: 100%;
+  border: whitesmoke 1px solid;
+}
+
+.adding_textarea {
+  background-color: burlywood;
+  border-radius: 20px;
+  font-family: "Constantia", sans-serif;
+  font-size: 1.3vw;
+  width: 99%;
+  resize: none;
+  border: whitesmoke 1px solid;
+}
+
+fieldset {
+  text-align: center;
+  background-color: #5A3E36;
+}
+
+.registration_button {
+  height: 45px;
+  width: 35%;
+  background: none;
+  border: 2px solid wheat;
+  border-radius: 20px;
+  font-size: 1.4vw;
+  font-family: 'Bowlby One SC', cursive;
+  color: #612A05;
+}
+
+.offer_button {
+  width: 80%;
+  background-color: peru;
+  border-top: black 1px solid;
+  border-bottom: black 1px solid;
+  border-left: black 3px solid;
+  border-right: black 3px solid;
+  border-radius: 20px;
+  font-family: 'Bowlby One SC', cursive;
+  font-size: 1.2vw;
+  letter-spacing: 1px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5px;
+  color: black;
+}
+
+.adding_button {
+  width: 20%;
+  background-color: peru;
+  border-top: #8B4513 1px solid;
+  border-bottom: #8B4513 1px solid;
+  border-left: black 3px solid;
+  border-right: black 3px solid;
+  border-radius: 20px;
+  font-size: 1.2vw;
+  font-family: 'Bowlby One SC', cursive;
+  letter-spacing: 2px;
+  margin: 0.3% 45%;
+}
+
+table {
+  background-color: peru;
+  width: 98%;
+  border-collapse: collapse;
+  border-spacing: 5px;
+  empty-cells: hide;
+  border-radius: 50px;
+  margin: 2% 1% 0;
+}
+
+.cell_header {
+  letter-spacing: 1px;
+  font-size: 1.4vw;
+  text-shadow: 1px 1px 3px white;
+  font-family: 'Bangers', cursive;
+  padding: 5px;
+}
+
+.cell {
+  padding: 10px;
+  background-color: #D2B48C;
+  border-radius: 50px;
+  font-size: 1.1vw;
+  font-family: "Constantia", sans-serif;
+  max-width: 50px;
+  word-wrap: break-word;
+}
+
+.new_offer_cell {
+  border-radius: 50px;
+  font-family: "Bernard MT Condensed", cursive;
+}
+
+.new_action_link_position {
+  text-align: left;
+}
+
+.login_panel {
+  border: 3px solid;
+  border-radius: 40px;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  background-color: #E08119
+}
+
+input.invalid {
+  background-color: red;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+}
+
+input.valid {
+  background-color: #32CD32;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+}
+
+textarea.invalid {
+  background-color: red;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+}
+
+textarea.valid {
+  background-color: #32CD32;
+  border-radius: 20px;
+  font-size: 1.3vw;
+  font-family: "Constantia", sans-serif;
+}

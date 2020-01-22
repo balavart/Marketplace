@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adding Item</title>
+  <meta charset="UTF-8">
+  <meta content="The site was developed by student Balaian Vardan" name="description">
+  <meta content="en" http-equiv="content-language">
+  <meta content="Vardan Balaian" name="author">
+  <meta content="copyright held by Balaian Vardan" name="copyright">
+
+  <link href="../css/element_styles.css" rel="stylesheet">
+  <link href="../css/text_styles.css" rel="stylesheet">
+  <link href="../css/hover_styles.css" rel="stylesheet">
+
+  <script src="../js/adding_form_validation.js" type="text/javascript"></script>
+  <script src="../js/elements_change.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<h1 class="site_name_decor">Online MarketPlace</h1>
+
+<a class="navigation_link" href="mp_mainpage.html">Homepage</a>
+<a class="navigation_link" href="mp_item_table.html">Auction table</a>
+
+<div class="content">
+
+  <table>
+
+    <caption class="legend_text">Adding product</caption>
+
+    <thead>
+
+    <tr>
+
+      <th class="cell_header" width="5%">
+        User ID
+      </th>
+
+      <th class="cell_header" width="15%">
+        Sale
+      </th>
+
+      <th class="cell_header" width="35%">
+        Description
+      </th>
+
+      <th class="cell_header" width="15%">
+        Salesman
+      </th>
+
+      <th class="cell_header" width=10%">
+        Starting price
+      </th>
+
+      <th class="cell_header" width="10%">
+        Offer end date
+      </th>
+
+      <th class="cell_header" width="10%">
+        Status
+      </th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr>
+      <form action="#" autocomplete="off" enctype="text/plain" method="post" name="adding_form">
+        <td class="cell"></td>
+        <td class="cell">
+          <label for="sale">
+            <input class="adding_input" id="sale" maxlength="20" minlength="3"
+                   name="sale" pattern="^[a-zA-Z0-9_-№:,<>/-\s]{3,20}$" placeholder="Product"
+                   required title="Use 3-20 Latin characters."
+                   type="text"/>
+          </label>
+        </td>
+        <td class="cell">
+          <label for="description">
+          <textarea class="adding_textarea" id="description" maxlength="150"
+                    minlength="10" name="description" placeholder="Description"
+                    required title="Use 10-150 Latin characters."></textarea>
+          </label>
+        </td>
+        <td class="cell"></td>
+        <td class="cell">
+          <label for="startprice"></label><input class="adding_input" id="startprice" maxlength="7"
+                                                 minlength="1" name="startprice"
+                                                 pattern="^\d+(,\d{3})*(\.\d{1,2})?$" placeholder="Startprice"
+                                                 required
+                                                 title="Enter the amount in the format: 999(.99)"
+                                                 type="text"/>
+        </td>
+        <td class="cell">
+          <label for="end_date"></label><input class="adding_input" id="end_date"
+                                               name="end_date" placeholder="End date" required
+                                               type="date" title="Select offer end date."/>
+        </td>
+        <td class="cell">
+          <label>
+            <select class="adding_input" name="status" required title="Select status.">
+              <option disabled selected></option>
+              <option>At auction</option>
+              <option>Sold</option>
+            </select>
+          </label>
+        </td>
+
+    <tfoot>
+    <tr>
+      <td colspan="6">
+        <button class="adding_button" type="reset">Reset</button>
+        <button class="adding_button" type="submit">Confirm</button>
+      </td>
+    </tr>
+    </tfoot>
+
+    </form>
+    </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+<footer class="footer"><p class="footer_text">Developed by student Balaian Vardan Ⓢ 2020</p>
+</footer>
+
+</body>
+
+</html>
