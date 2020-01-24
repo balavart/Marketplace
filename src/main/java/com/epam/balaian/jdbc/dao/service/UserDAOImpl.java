@@ -1,4 +1,4 @@
-package com.epam.balaian.jdbc.dao.JDBCImplementation;
+package com.epam.balaian.jdbc.dao.service;
 
 import static com.epam.balaian.jdbc.dao.BDScheme.CITY;
 import static com.epam.balaian.jdbc.dao.BDScheme.EMAIL;

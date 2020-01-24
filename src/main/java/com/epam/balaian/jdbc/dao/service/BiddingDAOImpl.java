@@ -1,4 +1,4 @@
-package com.epam.balaian.jdbc.dao.JDBCImplementation;
+package com.epam.balaian.jdbc.dao.service;
 
 import static com.epam.balaian.jdbc.dao.BDScheme.BEST_OFFER;
 import static com.epam.balaian.jdbc.dao.BDScheme.BIDDING_TABLE;

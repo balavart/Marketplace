@@ -1,4 +1,4 @@
-package com.epam.balaian.jdbc.dao.JDBCImplementation;
+package com.epam.balaian.jdbc.dao.service;
 
 import static com.epam.balaian.jdbc.dao.BDScheme.DESCRIPTION;
 import static com.epam.balaian.jdbc.dao.BDScheme.ID_BIDDING_FK;

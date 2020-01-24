@@ -1,4 +1,4 @@
-package com.epam.balaian.jdbc.dao.JDBCImplementation;
+package com.epam.balaian.jdbc.dao.service;
 
 import com.epam.balaian.jdbc.dao.BiddingDAO;
 import com.epam.balaian.jdbc.dao.DAOFactory;
@@ -42,6 +42,17 @@ public class DAOFactoryImpl implements DAOFactory {
     return factory;
   }
 
+  public static Connection getConnection() {
+    Connection connection = null;
+    try {
+      connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    } catch (SQLException e) {
+      System.err.println("Could not connect to the database");
+      e.printStackTrace();
+    }
+    return connection;
+  }
+
   @Override
   public UserDAO getUserDAO() {
     return new UserDAOImpl();
@@ -55,16 +66,5 @@ public class DAOFactoryImpl implements DAOFactory {
   @Override
   public BiddingDAO getBiddingDAO() {
     return new BiddingDAOImpl();
-  }
-
-  public static Connection getConnection() {
-    Connection connection = null;
-    try {
-      connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-    } catch (SQLException e) {
-      System.err.println("Could not connect to the database");
-      e.printStackTrace();
-    }
-    return connection;
   }
 }

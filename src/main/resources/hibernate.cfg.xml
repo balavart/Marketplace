@@ -1,0 +1,50 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+
+    <property name="hibernate.dialect">
+      org.hibernate.dialect.MySQLDialect
+    </property>
+
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/marketplace?serverTimezone=UTC</property>
+
+    <property name = "hibernate.connection.username">
+      root
+    </property>
+
+    <property name = "hibernate.connection.password">
+      root
+    </property>
+
+    <property name="connection.pool_size">
+      1
+    </property>
+
+    <property name="current_session_context_class">
+      thread
+    </property>
+
+    <property name="hibernate.hbm2ddl.auto">
+      update
+    </property>
+
+    <property name="show_sql">
+      true
+    </property>
+
+    <property name="default_schema">
+      marketplace
+    </property>
+
+    <mapping class="com.epam.balaian.hibernate.model.BiddingEntity"/>
+    <mapping class="com.epam.balaian.hibernate.model.ProductEntity"/>
+    <mapping class="com.epam.balaian.hibernate.model.RoleEntity"/>
+    <mapping class="com.epam.balaian.hibernate.model.StatusTypeEntity"/>
+    <mapping class="com.epam.balaian.hibernate.model.UserEntity"/>
+
+  </session-factory>
+</hibernate-configuration>

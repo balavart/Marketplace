@@ -2,7 +2,7 @@ package com.epam.balaian.jdbc;
 
 import com.epam.balaian.jdbc.dao.BiddingDAO;
 import com.epam.balaian.jdbc.dao.DAOFactory;
-import com.epam.balaian.jdbc.dao.JDBCImplementation.DAOFactoryImpl;
+import com.epam.balaian.jdbc.dao.service.DAOFactoryImpl;
 import com.epam.balaian.jdbc.dao.ProductDAO;
 import com.epam.balaian.jdbc.dao.UserDAO;
 import java.sql.SQLException;
@@ -67,5 +67,7 @@ public class Main {
     //    System.out.println(
     //        biddingDAO.getAllBiddingByIdSupposedBidder(1)); // show all products by Id Supposed
     // Bidder
+
+    // todo: add tests
   }
 }
