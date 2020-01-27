@@ -1,8 +1,7 @@
-package com.epam.balaian.hibernate.dao.service;
+package com.epam.balaian.hibernate.dao;
 
-import com.epam.balaian.hibernate.dao.ProductEntityDAO;
-import com.epam.balaian.hibernate.model.ProductEntity;
-import java.util.Collection;
+import com.epam.balaian.hibernate.model.Product;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,15 +12,15 @@ import org.hibernate.cfg.Configuration;
  * @created 1/24/2020
  * @since 1.8
  */
-public class ProductEntityDAOImpl implements ProductEntityDAO {
+public class ProductDAOImpl implements ProductDAO {
   private final SessionFactory factory;
 
-  public ProductEntityDAOImpl() {
+  public ProductDAOImpl() {
     this.factory = new Configuration().configure().buildSessionFactory();
   }
 
   @Override
-  public void addProduct(ProductEntity product) {
+  public void addProduct(Product product) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
 
@@ -34,11 +33,11 @@ public class ProductEntityDAOImpl implements ProductEntityDAO {
   }
 
   @Override
-  public ProductEntity getByIdProduct(long productId) {
+  public Product getByProductId(long productId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return session.get(ProductEntity.class, productId);
+      return session.get(Product.class, productId);
     } finally {
       tx.commit();
       session.close();
@@ -50,7 +49,7 @@ public class ProductEntityDAOImpl implements ProductEntityDAO {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      ProductEntity productToUpdate = session.get(ProductEntity.class, productId);
+      Product productToUpdate = session.get(Product.class, productId);
       productToUpdate.setProductTitle(title);
       productToUpdate.setDescription(description);
       session.update(productToUpdate);
@@ -65,7 +64,7 @@ public class ProductEntityDAOImpl implements ProductEntityDAO {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      ProductEntity productToRemove = session.get(ProductEntity.class, productId);
+      Product productToRemove = session.get(Product.class, productId);
       session.delete(productToRemove);
     } finally {
       tx.commit();
@@ -74,11 +73,11 @@ public class ProductEntityDAOImpl implements ProductEntityDAO {
   }
 
   @Override
-  public Collection<ProductEntity> getAllProducts() {
+  public List<Product> getAllProducts() {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return session.createQuery("from ProductEntity").list();
+      return session.createQuery("from Product").list();
     } finally {
       tx.commit();
       session.close();
@@ -86,11 +85,11 @@ public class ProductEntityDAOImpl implements ProductEntityDAO {
   }
 
   @Override
-  public Collection<ProductEntity> getAllProductsByIdOwner(long idOwner) {
+  public List<Product> getAllProductsByIdOwner(long idOwner) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return session.createQuery("from ProductEntity where productId = " + idOwner).list();
+      return session.createQuery("from Product where productId = " + idOwner).list();
     } finally {
       tx.commit();
       session.close();

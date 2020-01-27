@@ -1,6 +1,7 @@
 package com.epam.balaian.hibernate.model;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,15 +16,15 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 /**
- * @author balavart
+ * @author Vardan Balaian
  * @created 24.01.2020
  * @since 1.8
  */
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "user", schema = "marketplace", catalog = "")
-public class UserEntity {
+@Table(name = "user", schema = "marketplace")
+public class User {
 
   private Long userId;
   private String loginName;
@@ -32,9 +33,15 @@ public class UserEntity {
   private String city;
   private String email;
   private String phoneNumber;
-  private Collection<BiddingEntity> biddingsByUserId;
-  private Collection<ProductEntity> productsByUserId;
-  private RoleEntity roleByRoleIdFk;
+  private List<Bidding> biddingByUser;
+  private List<Product> productsByUser;
+  private Role userRole;
+
+  public User(Long userId) {
+    this.userId = userId;
+  }
+
+  public User() {}
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,37 +114,37 @@ public class UserEntity {
     this.phoneNumber = phoneNumber;
   }
 
-  @OneToMany(mappedBy = "userBySupposedBidderIdFk")
-  public Collection<BiddingEntity> getBiddingsByUserId() {
-    return biddingsByUserId;
+  @OneToMany(mappedBy = "userAsSupposedBidder")
+  public List<Bidding> getBiddingByUser() {
+    return biddingByUser;
   }
 
-  public void setBiddingsByUserId(Collection<BiddingEntity> biddingsByUserId) {
-    this.biddingsByUserId = biddingsByUserId;
+  public void setBiddingByUser(List<Bidding> biddingByUser) {
+    this.biddingByUser = biddingByUser;
   }
 
-  @OneToMany(mappedBy = "userByProductOwnerIdFk")
-  public Collection<ProductEntity> getProductsByUserId() {
-    return productsByUserId;
+  @OneToMany(mappedBy = "productOwner")
+  public List<Product> getProductsByUser() {
+    return productsByUser;
   }
 
-  public void setProductsByUserId(Collection<ProductEntity> productsByUserId) {
-    this.productsByUserId = productsByUserId;
+  public void setProductsByUser(List<Product> productsByUser) {
+    this.productsByUser = productsByUser;
   }
 
   @ManyToOne
   @JoinColumn(name = "role_id_fk", referencedColumnName = "role_id", nullable = false)
-  public RoleEntity getRoleByRoleIdFk() {
-    return roleByRoleIdFk;
+  public Role getUserRole() {
+    return userRole;
   }
 
-  public void setRoleByRoleIdFk(RoleEntity roleByRoleIdFk) {
-    this.roleByRoleIdFk = roleByRoleIdFk;
+  public void setUserRole(Role userRole) {
+    this.userRole = userRole;
   }
 
   @Override
   public String toString() {
-    return "UserEntity{"
+    return "User{"
         + "userId="
         + userId
         + ", loginName='"
@@ -158,12 +165,42 @@ public class UserEntity {
         + ", phoneNumber='"
         + phoneNumber
         + '\''
-        + ", biddingsByUserId="
-        + biddingsByUserId
-        + ", productsByUserId="
-        + productsByUserId
-        + ", roleByRoleIdFk="
-        + roleByRoleIdFk
         + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    User user = (User) o;
+    return Objects.equals(userId, user.userId)
+        && Objects.equals(loginName, user.loginName)
+        && Objects.equals(password, user.password)
+        && Objects.equals(fullName, user.fullName)
+        && Objects.equals(city, user.city)
+        && Objects.equals(email, user.email)
+        && Objects.equals(phoneNumber, user.phoneNumber)
+        && Objects.equals(biddingByUser, user.biddingByUser)
+        && Objects.equals(productsByUser, user.productsByUser)
+        && Objects.equals(userRole, user.userRole);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        userId,
+        loginName,
+        password,
+        fullName,
+        city,
+        email,
+        phoneNumber,
+        biddingByUser,
+        productsByUser,
+        userRole);
   }
 }

@@ -1,10 +1,9 @@
-package com.epam.balaian.hibernate.dao.service;
+package com.epam.balaian.hibernate.dao;
 
-import com.epam.balaian.hibernate.dao.BiddingEntityDAO;
-import com.epam.balaian.hibernate.model.BiddingEntity;
-import com.epam.balaian.hibernate.model.StatusTypeEntity;
+import com.epam.balaian.hibernate.model.Bidding;
+import com.epam.balaian.hibernate.model.StatusType;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,15 +14,15 @@ import org.hibernate.cfg.Configuration;
  * @created 1/24/2020
  * @since 1.8
  */
-public class BiddingEntityDAOImpl implements BiddingEntityDAO {
+public class BiddingDAOImpl implements BiddingDAO {
   private final SessionFactory factory;
 
-  public BiddingEntityDAOImpl() {
+  public BiddingDAOImpl() {
     this.factory = new Configuration().configure().buildSessionFactory();
   }
 
   @Override
-  public void addBidding(BiddingEntity bidding) {
+  public void addBidding(Bidding bidding) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
 
@@ -36,12 +35,12 @@ public class BiddingEntityDAOImpl implements BiddingEntityDAO {
   }
 
   @Override
-  public BiddingEntity getBiddingById(long biddingId) {
+  public Bidding getBiddingById(long biddingId) {
 
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return (BiddingEntity) session.get(BiddingEntity.class, biddingId);
+      return (Bidding) session.get(Bidding.class, biddingId);
     } finally {
       tx.commit();
       session.close();
@@ -50,14 +49,14 @@ public class BiddingEntityDAOImpl implements BiddingEntityDAO {
 
   @Override
   public void editBidding(
-      Double startingPrice, Date offerEndDate, StatusTypeEntity status, long biddingId) {
+      Double startingPrice, Date offerEndDate, StatusType status, long biddingId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      BiddingEntity biddingToUpdate = session.get(BiddingEntity.class, biddingId);
+      Bidding biddingToUpdate = session.get(Bidding.class, biddingId);
       biddingToUpdate.setStartingPrice(startingPrice);
       biddingToUpdate.setOfferEndDate(offerEndDate);
-      biddingToUpdate.setStatusTypeByStatusIdFk(status);
+      biddingToUpdate.setBiddingStatus(status);
       session.update(biddingToUpdate);
     } finally {
       tx.commit();
@@ -70,7 +69,7 @@ public class BiddingEntityDAOImpl implements BiddingEntityDAO {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      BiddingEntity biddingToRemove = session.get(BiddingEntity.class, biddingId);
+      Bidding biddingToRemove = session.get(Bidding.class, biddingId);
       session.delete(biddingToRemove);
     } finally {
       tx.commit();
@@ -79,11 +78,11 @@ public class BiddingEntityDAOImpl implements BiddingEntityDAO {
   }
 
   @Override
-  public Collection<BiddingEntity> getAllBidding() {
+  public List<Bidding> getAllBidding() {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return session.createQuery("from BiddingEntity").list();
+      return session.createQuery("from Bidding").list();
     } finally {
       tx.commit();
       session.close();
@@ -91,11 +90,11 @@ public class BiddingEntityDAOImpl implements BiddingEntityDAO {
   }
 
   @Override
-  public Collection<BiddingEntity> getAllBiddingByIdSupposedBidder(long idSupposedBidder) {
+  public List<Bidding> getAllBiddingByIdSupposedBidder(long idSupposedBidder) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return session.createQuery("from BiddingEntity where biddingId = " + idSupposedBidder).list();
+      return session.createQuery("from Bidding where biddingId = " + idSupposedBidder).list();
     } finally {
       tx.commit();
       session.close();

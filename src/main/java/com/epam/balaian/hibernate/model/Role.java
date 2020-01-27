@@ -1,6 +1,7 @@
 package com.epam.balaian.hibernate.model;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,19 +14,25 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 /**
- * @author balavart
+ * @author Vardan Balaian
  * @created 24.01.2020
  * @since 1.8
  */
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "role", schema = "marketplace", catalog = "")
-public class RoleEntity {
+@Table(name = "role", schema = "marketplace")
+public class Role {
 
   private Integer roleId;
   private String roleTitle;
-  private Collection<UserEntity> usersByRoleId;
+  private List<User> usersByRole;
+
+  public Role(Integer roleId) {
+    this.roleId = roleId;
+  }
+
+  public Role() {}
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,25 +55,36 @@ public class RoleEntity {
     this.roleTitle = roleTitle;
   }
 
-  @OneToMany(mappedBy = "roleByRoleIdFk")
-  public Collection<UserEntity> getUsersByRoleId() {
-    return usersByRoleId;
+  @OneToMany(mappedBy = "userRole")
+  public List<User> getUsersByRole() {
+    return usersByRole;
   }
 
-  public void setUsersByRoleId(Collection<UserEntity> usersByRoleId) {
-    this.usersByRoleId = usersByRoleId;
+  public void setUsersByRole(List<User> usersByRole) {
+    this.usersByRole = usersByRole;
   }
 
   @Override
   public String toString() {
-    return "RoleEntity{"
-        + "roleId="
-        + roleId
-        + ", roleTitle='"
-        + roleTitle
-        + '\''
-        + ", usersByRoleId="
-        + usersByRoleId
-        + '}';
+    return "Role{" + "roleId=" + roleId + ", roleTitle='" + roleTitle + '\'' + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Role role = (Role) o;
+    return Objects.equals(roleId, role.roleId)
+        && Objects.equals(roleTitle, role.roleTitle)
+        && Objects.equals(usersByRole, role.usersByRole);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(roleId, roleTitle, usersByRole);
   }
 }

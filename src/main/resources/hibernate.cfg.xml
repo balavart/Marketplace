@@ -40,11 +40,11 @@
       marketplace
     </property>
 
-    <mapping class="com.epam.balaian.hibernate.model.BiddingEntity"/>
-    <mapping class="com.epam.balaian.hibernate.model.ProductEntity"/>
-    <mapping class="com.epam.balaian.hibernate.model.RoleEntity"/>
-    <mapping class="com.epam.balaian.hibernate.model.StatusTypeEntity"/>
-    <mapping class="com.epam.balaian.hibernate.model.UserEntity"/>
+    <mapping class="com.epam.balaian.hibernate.model.Bidding"/>
+    <mapping class="com.epam.balaian.hibernate.model.Product"/>
+    <mapping class="com.epam.balaian.hibernate.model.Role"/>
+    <mapping class="com.epam.balaian.hibernate.model.StatusType"/>
+    <mapping class="com.epam.balaian.hibernate.model.User"/>
 
   </session-factory>
 </hibernate-configuration>

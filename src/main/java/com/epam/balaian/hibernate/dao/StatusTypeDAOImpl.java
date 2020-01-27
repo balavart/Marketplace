@@ -1,7 +1,6 @@
-package com.epam.balaian.hibernate.dao.service;
+package com.epam.balaian.hibernate.dao;
 
-import com.epam.balaian.hibernate.dao.RoleEntityDAO;
-import com.epam.balaian.hibernate.model.RoleEntity;
+import com.epam.balaian.hibernate.model.StatusType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,19 +11,19 @@ import org.hibernate.cfg.Configuration;
  * @created 1/24/2020
  * @since 1.8
  */
-public class RoleEntityDAOImpl implements RoleEntityDAO {
+public class StatusTypeDAOImpl implements StatusTypeDAO {
   private final SessionFactory factory;
 
-  public RoleEntityDAOImpl() {
+  public StatusTypeDAOImpl() {
     this.factory = new Configuration().configure().buildSessionFactory();
   }
 
   @Override
-  public RoleEntity getRoleById(int roleId) {
+  public StatusType getStatusById(int statusId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return (RoleEntity) session.get(RoleEntity.class, roleId);
+      return (StatusType) session.get(StatusType.class, statusId);
     } finally {
       tx.commit();
       session.close();

@@ -1,11 +1,14 @@
 package com.epam.balaian.hibernate;
 
-import com.epam.balaian.hibernate.dao.BiddingEntityDAO;
-import com.epam.balaian.hibernate.dao.ProductEntityDAO;
-import com.epam.balaian.hibernate.dao.UserEntityDAO;
-import com.epam.balaian.hibernate.dao.service.BiddingEntityDAOImpl;
-import com.epam.balaian.hibernate.dao.service.ProductEntityDAOImpl;
-import com.epam.balaian.hibernate.dao.service.UserEntityDAOImpl;
+import com.epam.balaian.hibernate.dao.BiddingDAO;
+import com.epam.balaian.hibernate.dao.BiddingDAOImpl;
+import com.epam.balaian.hibernate.dao.ProductDAO;
+import com.epam.balaian.hibernate.dao.ProductDAOImpl;
+import com.epam.balaian.hibernate.dao.RoleDAOImpl;
+import com.epam.balaian.hibernate.dao.UserDAO;
+import com.epam.balaian.hibernate.dao.UserDAOImpl;
+import com.epam.balaian.hibernate.model.Product;
+import com.epam.balaian.hibernate.model.User;
 
 /**
  * @author Vardan Balaian
@@ -15,54 +18,54 @@ import com.epam.balaian.hibernate.dao.service.UserEntityDAOImpl;
 public class MainHibernate {
 
   public static void main(String[] args) {
-    UserEntityDAO userEntityDAO = new UserEntityDAOImpl();
-    //    UserEntity newUser = new UserEntity();
-    //    newUser.setLoginName("super_zombie");
-    //    newUser.setPassword("zom123");
-    //    newUser.setFullName("Zack Sheder");
-    //    newUser.setCity("Paris");
-    //    newUser.setEmail("fergok@gm.com");
-    //    newUser.setPhoneNumber("+53421234");
-    //    newUser.setRoleByRoleIdFk(new RoleEntityDAOImpl().getRoleById(2));
-    //    userEntityDAO.addUser(newUser); // add user
+    UserDAO userDAO = new UserDAOImpl();
+    User newUser = new User();
+    newUser.setLoginName("super_zombie");
+    newUser.setPassword("zom123");
+    newUser.setFullName("Zack Sheder");
+    newUser.setCity("Paris");
+    newUser.setEmail("fergok@gm.com");
+    newUser.setPhoneNumber("+53421234");
+    newUser.setUserRole(new RoleDAOImpl().getRoleById(2));
+    userDAO.addUser(newUser); // add user
 
-    ProductEntityDAO productEntityDAO = new ProductEntityDAOImpl();
-    //    ProductEntity newProduct = new ProductEntity();
-    //    newProduct.setProductTitle("Canvas");
-    //    newProduct.setDescription("10 colors have");
-    //    newProduct.setUserByProductOwnerIdFk(new UserEntityDAOImpl().getUserById( 1));
-    //    newProduct.setBiddingByBiddingIdFk(new BiddingEntityDAOImpl().getBiddingById(3));
-    //    productEntityDAO.addProduct(newProduct); // add product
+    ProductDAO productDAO = new ProductDAOImpl();
+    Product newProduct = new Product();
+    newProduct.setProductTitle("Canvas");
+    newProduct.setDescription("10 colors have");
+    newProduct.setProductOwner(newUser);
+    newProduct.setBiddingByProduct(new BiddingDAOImpl().getBiddingById(3));
+    productDAO.addProduct(newProduct); // add product
 
-    //    productEntityDAO.deleteProduct(10); // delete product
-
-    //      productEntityDAO.editProduct("Bird", "Little",7); // edit product
-
-    //    System.out.println(productEntityDAO.getAllProducts()); // show all products
-
-    //    System.out.println(productEntityDAO.getAllProductsByIdOwner(3)); // show all products by
+    //        productDAO.deleteProduct(10); // delete product
+    //
+    //          productDAO.editProduct("Bird", "Little",7); // edit product
+    //
+    //        System.out.println(productDAO.getAllProducts()); // show all products
+    //
+    //        System.out.println(productDAO.getAllProductsByIdOwner(3)); // show all products by
     // Owner
 
-    BiddingEntityDAO biddingEntityDAO = new BiddingEntityDAOImpl();
-    //    BiddingEntity bidding = new BiddingEntity();
+    BiddingDAO biddingDAO = new BiddingDAOImpl();
+    //    Bidding bidding = new Bidding();
     //    bidding.setStartingPrice(555.55);
     //    bidding.setOfferEndDate(Date.valueOf("2021-03-31"));
     //    bidding.setBestOffer(null);
     //    bidding.setUserBySupposedBidderIdFk(null);
-    //    bidding.setStatusTypeByStatusIdFk(new StatusTypeEntityDAOImpl().getStatusById(1));
-    //    biddingEntityDAO.addBidding(bidding); // add bidding
+    //    bidding.setStatusTypeByStatusIdFk(new StatusTypeDAOImpl().getStatusById(1));
+    //    biddingDAO.addBidding(bidding); // add bidding
 
-    //    biddingEntityDAO.deleteBidding(6); // delete bidding
+    //    biddingDAO.deleteBidding(6); // delete bidding
 
-    //    biddingEntityDAO.editBidding(
-    //        111.11, Date.valueOf("2023-01-13"), new StatusTypeEntityDAOImpl().getStatusById(2),
+    //    biddingDAO.editBidding(
+    //        111.11, Date.valueOf("2023-01-13"), new StatusTypeDAOImpl().getStatusById(2),
     // 7); // edit bidding
 
-    //        System.out.println(biddingEntityDAO.getAllBidding()); // show all bidding
+    //            System.out.println(biddingDAO.getAllBidding()); // show all bidding
 
-    //    System.out.println(biddingEntityDAO.getAllBiddingByIdSupposedBidder(1)); // show all
+    //        System.out.println(biddingDAO.getAllBiddingByIdSupposedBidder(1)); // show all
     // bidding by Supposed Bidder
 
-    // todo:change lazy connection and add tests
+    // todo: add tests
   }
 }

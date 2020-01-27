@@ -1,4 +1,4 @@
-package com.epam.balaian.jdbc.dao.service;
+package com.epam.balaian.jdbc.dao;
 
 import static com.epam.balaian.jdbc.dao.BDScheme.BEST_OFFER;
 import static com.epam.balaian.jdbc.dao.BDScheme.BIDDING_TABLE;
@@ -8,7 +8,6 @@ import static com.epam.balaian.jdbc.dao.BDScheme.ID_SUPPOSED_BIDDER_FK;
 import static com.epam.balaian.jdbc.dao.BDScheme.OFFER_END_DATE;
 import static com.epam.balaian.jdbc.dao.BDScheme.STARTING_PRICE;
 
-import com.epam.balaian.jdbc.dao.BiddingDAO;
 import com.epam.balaian.jdbc.model.Bidding;
 import java.sql.Connection;
 import java.sql.Date;

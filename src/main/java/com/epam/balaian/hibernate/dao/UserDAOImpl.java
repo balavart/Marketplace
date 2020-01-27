@@ -1,26 +1,25 @@
-package com.epam.balaian.hibernate.dao.service;
+package com.epam.balaian.hibernate.dao;
 
-import com.epam.balaian.hibernate.dao.UserEntityDAO;
-import com.epam.balaian.hibernate.model.UserEntity;
+import com.epam.balaian.hibernate.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
- * @author Vardan_Balaian
+ * @author Vardan Balaian
  * @created 1/24/2020
  * @since 1.8
  */
-public class UserEntityDAOImpl implements UserEntityDAO {
+public class UserDAOImpl implements UserDAO {
   private final SessionFactory factory;
 
-  public UserEntityDAOImpl() {
+  public UserDAOImpl() {
     this.factory = new Configuration().configure().buildSessionFactory();
   }
 
   @Override
-  public void addUser(final UserEntity user) {
+  public void addUser(User user) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
 
@@ -33,11 +32,11 @@ public class UserEntityDAOImpl implements UserEntityDAO {
   }
 
   @Override
-  public UserEntity getUserById(long userId) {
+  public User getUserById(long userId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
-      return (UserEntity) session.get(UserEntity.class, userId);
+      return (User) session.get(User.class, userId);
     } finally {
       tx.commit();
       session.close();

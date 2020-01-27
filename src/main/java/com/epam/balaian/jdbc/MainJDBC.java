@@ -2,7 +2,7 @@ package com.epam.balaian.jdbc;
 
 import com.epam.balaian.jdbc.dao.BiddingDAO;
 import com.epam.balaian.jdbc.dao.DAOFactory;
-import com.epam.balaian.jdbc.dao.service.DAOFactoryImpl;
+import com.epam.balaian.jdbc.dao.DAOFactoryImpl;
 import com.epam.balaian.jdbc.dao.ProductDAO;
 import com.epam.balaian.jdbc.dao.UserDAO;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @created 1/21/2020
  * @since 1.8
  */
-public class Main {
+public class MainJDBC {
 
   public static void main(String[] args) throws SQLException {
     DAOFactory factory = DAOFactoryImpl.getInstance();
