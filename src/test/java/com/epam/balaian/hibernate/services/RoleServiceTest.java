@@ -28,8 +28,10 @@ class RoleServiceTest {
 
   @Test
   void checkRolePresenceTrue() {
-    given(roleDAO.getRoleById(1)).willReturn(new Role(1));
-    boolean roleExists = roleService.checkRolePresence(new Role(1));
+    Role roleReceived = new Role(1);
+
+    given(roleDAO.getRoleById(any(Integer.TYPE))).willReturn(roleReceived);
+    boolean roleExists = roleService.checkRolePresence(roleReceived);
 
     assertThat(roleExists).isTrue();
 
@@ -38,7 +40,7 @@ class RoleServiceTest {
 
   @Test
   void checkRolePresenceFalse() {
-    given(roleDAO.getRoleById(1)).willReturn(null);
+    given(roleDAO.getRoleById(any(Integer.TYPE))).willReturn(null);
     boolean roleExists = roleService.checkRolePresence(new Role(1));
 
     assertThat(roleExists).isFalse();
@@ -51,7 +53,7 @@ class RoleServiceTest {
     assertThrows(
         Exception.class,
         () -> {
-          given(roleDAO.getRoleById(any(Integer.class))).willThrow(Exception.class);
+          given(roleDAO.getRoleById(any(Integer.TYPE))).willThrow(Exception.class);
           roleService.checkRolePresence(any(Role.class));
         });
   }

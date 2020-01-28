@@ -2,6 +2,8 @@ package com.epam.balaian.hibernate.services;
 
 import com.epam.balaian.hibernate.dao.ProductDAO;
 import com.epam.balaian.hibernate.model.Product;
+import com.epam.balaian.hibernate.model.User;
+import java.util.List;
 
 /**
  * @author Vardan Balaian
@@ -16,10 +18,42 @@ public class ProductService {
     this.productDAO = productDAO;
   }
 
+  public boolean checkProductAddition(Product product) {
+    Product addedProduct = productDAO.addProduct(product);
+
+    return addedProduct != null;
+  }
+
   public boolean checkProductPresence(Product product) {
+    Product existingProduct = productDAO.getByProductId(product.getProductId());
 
-    Product productExample = productDAO.getByProductId(product.getProductId());
+    return existingProduct != null;
+  }
 
-    return productExample != null;
+  public boolean checkProductEditing(Product product) {
+    Product editedProduct =
+        productDAO.editProduct(
+            product.getProductTitle(), product.getDescription(), product.getProductId());
+
+    return editedProduct != null;
+  }
+
+  public boolean checkProductRemoval(Product product) {
+    Product deletedProduct = productDAO.deleteProduct(product.getProductId());
+
+    return deletedProduct != null;
+  }
+
+  public boolean checkAllProductsPresence(List<Product> allExistingProducts) {
+    allExistingProducts = productDAO.getAllProducts();
+
+    return allExistingProducts != null;
+  }
+
+  public boolean checkAllProductsPresenceByIdOwner(
+      List<Product> allExistingProducts, User productOwner) {
+    allExistingProducts = productDAO.getAllProductsByIdOwner(productOwner.getUserId());
+
+    return allExistingProducts != null;
   }
 }

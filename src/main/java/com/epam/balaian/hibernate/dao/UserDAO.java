@@ -9,7 +9,7 @@ import com.epam.balaian.hibernate.model.User;
  */
 public interface UserDAO {
 
-  void addUser(User user);
+  User addUser(User user);
 
   User getUserById(long userId);
 }

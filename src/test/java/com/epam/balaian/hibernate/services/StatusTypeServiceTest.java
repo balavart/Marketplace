@@ -28,8 +28,10 @@ class StatusTypeServiceTest {
 
   @Test
   void checkStatusTypePresenceTrue() {
-    given(statusTypeDAO.getStatusById(1)).willReturn(new StatusType(1));
-    boolean statusExists = statusTypeService.checkStatusTypePresence(new StatusType(1));
+    StatusType statusReceived = new StatusType(1);
+
+    given(statusTypeDAO.getStatusById(any(Integer.TYPE))).willReturn(statusReceived);
+    boolean statusExists = statusTypeService.checkStatusTypePresence(statusReceived);
 
     assertThat(statusExists).isTrue();
 
@@ -38,7 +40,7 @@ class StatusTypeServiceTest {
 
   @Test
   void checkStatusTypePresenceFalse() {
-    given(statusTypeDAO.getStatusById(1)).willReturn(null);
+    given(statusTypeDAO.getStatusById(any(Integer.TYPE))).willReturn(null);
     boolean statusExists = statusTypeService.checkStatusTypePresence(new StatusType(1));
 
     assertThat(statusExists).isFalse();
@@ -51,7 +53,7 @@ class StatusTypeServiceTest {
     assertThrows(
         Exception.class,
         () -> {
-          given(statusTypeDAO.getStatusById(any(Integer.class))).willThrow(Exception.class);
+          given(statusTypeDAO.getStatusById(any(Integer.TYPE))).willThrow(Exception.class);
           statusTypeService.checkStatusTypePresence(any(StatusType.class));
         });
   }

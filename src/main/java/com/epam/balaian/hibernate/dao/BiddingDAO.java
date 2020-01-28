@@ -12,15 +12,15 @@ import java.util.List;
  */
 public interface BiddingDAO {
 
-  void addBidding(Bidding bidding);
+  Bidding addBidding(Bidding bidding);
 
   Bidding getBiddingById(long biddingId);
 
-  void editBidding(Double startingPrice, Date offerEndDate, StatusType status, long biddingId);
+  Bidding editBidding(Double startingPrice, Date offerEndDate, StatusType status, long biddingId);
 
-  void deleteBidding(long biddingId);
+  Bidding deleteBidding(long biddingId);
 
   List<Bidding> getAllBidding();
 
-  List<Bidding> getAllBiddingByIdSupposedBidder(final long idSupposedBidder);
+  List<Bidding> getAllBiddingByIdSupposedBidder(long idSupposedBidder);
 }

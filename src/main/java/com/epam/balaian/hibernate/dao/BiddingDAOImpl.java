@@ -22,12 +22,13 @@ public class BiddingDAOImpl implements BiddingDAO {
   }
 
   @Override
-  public void addBidding(Bidding bidding) {
+  public Bidding addBidding(Bidding bidding) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
 
     try {
       session.save(bidding);
+      return bidding;
     } finally {
       tx.commit();
       session.close();
@@ -48,7 +49,7 @@ public class BiddingDAOImpl implements BiddingDAO {
   }
 
   @Override
-  public void editBidding(
+  public Bidding editBidding(
       Double startingPrice, Date offerEndDate, StatusType status, long biddingId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
@@ -58,6 +59,7 @@ public class BiddingDAOImpl implements BiddingDAO {
       biddingToUpdate.setOfferEndDate(offerEndDate);
       biddingToUpdate.setBiddingStatus(status);
       session.update(biddingToUpdate);
+      return biddingToUpdate;
     } finally {
       tx.commit();
       session.close();
@@ -65,12 +67,13 @@ public class BiddingDAOImpl implements BiddingDAO {
   }
 
   @Override
-  public void deleteBidding(long biddingId) {
+  public Bidding deleteBidding(long biddingId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
       Bidding biddingToRemove = session.get(Bidding.class, biddingId);
       session.delete(biddingToRemove);
+      return biddingToRemove;
     } finally {
       tx.commit();
       session.close();

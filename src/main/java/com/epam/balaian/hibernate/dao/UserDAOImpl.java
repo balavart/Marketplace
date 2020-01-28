@@ -19,12 +19,13 @@ public class UserDAOImpl implements UserDAO {
   }
 
   @Override
-  public void addUser(User user) {
+  public User addUser(User user) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
 
     try {
       session.save(user);
+      return user;
     } finally {
       tx.commit();
       session.close();

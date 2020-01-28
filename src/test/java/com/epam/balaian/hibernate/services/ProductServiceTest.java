@@ -6,15 +6,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import com.epam.balaian.hibernate.dao.ProductDAO;
 import com.epam.balaian.hibernate.model.Product;
+import com.epam.balaian.hibernate.model.User;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,25 +33,61 @@ class ProductServiceTest {
   }
 
   @Test
+  void checkProductAdditionTrue() {
+    Product addedProduct = new Product("Something", "Something", 1L);
+
+    given(productDAO.addProduct(any(Product.class))).willReturn(addedProduct);
+    boolean productsExists = productService.checkProductAddition(addedProduct);
+
+    assertThat(productsExists).isTrue();
+
+    verify(productDAO, times(1)).addProduct(addedProduct);
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
+  }
+
+  @Test
+  void checkProductAdditionFalse() {
+    given(productDAO.addProduct(any(Product.class))).willReturn(null);
+    boolean productsExists = productService.checkProductAddition(new Product(1L));
+
+    assertThat(productsExists).isFalse();
+
+    verify(productDAO, times(1)).addProduct(new Product(1L));
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
+  }
+
+  @Test
+  void checkProductAdditionException() {
+    assertThrows(
+        Exception.class,
+        () -> {
+          given(productDAO.addProduct(any(Product.class))).willThrow(Exception.class);
+          productService.checkProductAddition(any(Product.class));
+        });
+  }
+
+  @Test
   void checkProductPresenceTrue() {
-    given(productDAO.getByProductId(1L)).willReturn(new Product(1L));
-    boolean productExists = productService.checkProductPresence(new Product(1L));
+    Product productReceived = new Product("Something", "Something", 1L);
+
+    given(productDAO.getByProductId(any(Long.TYPE))).willReturn(productReceived);
+    boolean productExists = productService.checkProductPresence(productReceived);
 
     assertThat(productExists).isTrue();
 
     verify(productDAO, times(1)).getByProductId(1L);
-    verify(productDAO, never()).deleteProduct(any(Long.class));
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
   }
 
   @Test
   public void checkProductPresenceFalse() {
-    given(productDAO.getByProductId(1L)).willReturn(null);
+    given(productDAO.getByProductId(any(Long.TYPE))).willReturn(null);
     boolean productExists = productService.checkProductPresence(new Product(1L));
 
     assertThat(productExists).isFalse();
 
     verify(productDAO, times(1)).getByProductId(1L);
-    verify(productDAO, never()).deleteProduct(any(Long.class));
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
   }
 
   @Test
@@ -62,105 +96,160 @@ class ProductServiceTest {
         Exception.class,
         () -> {
           given(productDAO.getByProductId(any(Long.class))).willThrow(Exception.class);
-          productService.checkProductPresence(new Product(1L));
+          productService.checkProductPresence(any(Product.class));
         });
   }
 
   @Test
-  void addProductTest() {
-    doNothing().when(productDAO).addProduct(any(Product.class));
+  void checkProductEditingTrue() {
+    Product editedProduct = new Product("Something", "Something", 1L);
 
-    productDAO.addProduct(new Product(1L));
+    given(productDAO.editProduct(isA(String.class), isA(String.class), isA(Long.TYPE)))
+        .willReturn(editedProduct);
+    boolean productExists = productService.checkProductEditing(editedProduct);
 
-    verify(productDAO, times(1)).addProduct(new Product(1L));
-    verify(productDAO, never()).deleteProduct(any(Long.class));
+    assertThat(productExists).isTrue();
+
+    verify(productDAO, times(1)).editProduct(isA(String.class), isA(String.class), isA(Long.TYPE));
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
   }
 
   @Test
-  public void addProductException() {
+  void checkProductEditingFalse() {
+    given(productDAO.editProduct(isA(String.class), isA(String.class), isA(Long.TYPE)))
+        .willReturn(null);
+    boolean productExists =
+        productService.checkProductEditing(new Product("Something", "Something", 1L));
+
+    assertThat(productExists).isFalse();
+
+    verify(productDAO, times(1)).editProduct(isA(String.class), isA(String.class), isA(Long.TYPE));
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
+  }
+
+  @Test
+  void checkProductEditingException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow().when(productDAO).addProduct(any(Product.class));
+          given(productDAO.editProduct(isA(String.class), isA(String.class), isA(Long.TYPE)))
+              .willThrow(Exception.class);
+          productService.checkProductEditing(any(Product.class));
         });
   }
 
   @Test
-  void editProductTest() {
-    doNothing().when(productDAO).editProduct(isA(String.class), isA(String.class), isA(Long.class));
+  void checkProductRemovalTrue() {
+    Product deletedProduct = new Product("Something", "Something", 1L);
 
-    productDAO.editProduct("Some", "Something", 1L);
+    given(productDAO.deleteProduct(any(Long.TYPE))).willReturn(deletedProduct);
+    boolean productExists = productService.checkProductRemoval(deletedProduct);
 
-    verify(productDAO, times(1)).editProduct(any(String.class), any(String.class), any(Long.class));
-    verify(productDAO, never()).deleteProduct(any(Long.class));
+    assertThat(productExists).isTrue();
+
+    verify(productDAO, times(1)).deleteProduct(any(Long.TYPE));
+    verify(productDAO, atLeastOnce()).deleteProduct(any(Long.TYPE));
   }
 
   @Test
-  void editProductException() {
+  void checkProductRemovalFalse() {
+    given(productDAO.deleteProduct(any(Long.class))).willReturn(null);
+    boolean productExists =
+        productService.checkProductRemoval(new Product("Something", "Something", 1L));
+
+    assertThat(productExists).isFalse();
+
+    verify(productDAO, times(1)).deleteProduct(any(Long.TYPE));
+    verify(productDAO, atLeastOnce()).deleteProduct(any(Long.TYPE));
+  }
+
+  @Test
+  void checkProductRemovalException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow()
-              .when(productDAO)
-              .editProduct(isA(String.class), isA(String.class), isA(Long.class));
+          given(productDAO.deleteProduct(any(Long.TYPE))).willThrow(Exception.class);
+          productService.checkProductRemoval(any(Product.class));
         });
   }
 
   @Test
-  void deleteProductTest() {
-    doNothing().when(productDAO).deleteProduct(isA(Long.class));
-    productDAO.deleteProduct(1L);
+  void checkAllProductsPresenceTrue() {
+    List<Product> allExistingProducts =
+        Arrays.asList(new Product(1L), new Product(2L), new Product(3L));
 
-    verify(productDAO, times(1)).deleteProduct(1L);
-    verify(productDAO, atLeastOnce()).deleteProduct(any(Long.class));
-  }
+    given(productDAO.getAllProducts()).willReturn(allExistingProducts);
+    boolean productsExists = productService.checkAllProductsPresence(allExistingProducts);
 
-  @Test
-  void deleteProductException() {
-    assertThrows(
-        Exception.class,
-        () -> {
-          doThrow().when(productDAO).deleteProduct(any(Long.class));
-        });
-  }
-
-  @Test
-  void getAllProductsTest() {
-    List<Product> products = Arrays.asList(new Product(1L), new Product(2L));
-
-    when(productDAO.getAllProducts()).thenReturn(products);
-
-    productDAO.getAllProducts();
+    assertThat(productsExists).isTrue();
 
     verify(productDAO, times(1)).getAllProducts();
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
   }
 
   @Test
-  void getAllProductsException() {
+  void checkAllProductsPresenceFalse() {
+    given(productDAO.getAllProducts()).willReturn(null);
+    boolean productsExists =
+        productService.checkAllProductsPresence(
+            Arrays.asList(new Product(1L), new Product(2L), new Product(3L)));
+
+    assertThat(productsExists).isFalse();
+
+    verify(productDAO, times(1)).getAllProducts();
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
+  }
+
+  @Test
+  void checkAllProductsPresenceException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow().when(productDAO).getAllProducts();
+          given(productDAO.getAllProducts()).willThrow(Exception.class);
+          productService.checkAllProductsPresence(any());
         });
   }
 
   @Test
-  void getAllProductsByIdOwnerTest() {
-    List<Product> productsByUser = Arrays.asList(new Product(1L), new Product(2L));
+  void checkAllProductsPresenceByIdOwnerTrue() {
+    List<Product> allExistingProductsByOwner =
+        Arrays.asList(new Product(1L), new Product(2L), new Product(3L));
+    User productOwner = new User(1L);
 
-    when(productDAO.getAllProductsByIdOwner(any(Long.class))).thenReturn(productsByUser);
+    given(productDAO.getAllProductsByIdOwner(any(Long.TYPE)))
+        .willReturn(allExistingProductsByOwner);
+    boolean productsExists =
+        productService.checkAllProductsPresenceByIdOwner(allExistingProductsByOwner, productOwner);
 
-    productDAO.getAllProductsByIdOwner(any(Long.class));
+    assertThat(productsExists).isTrue();
 
-    verify(productDAO, times(1)).getAllProductsByIdOwner(any(Long.class));
+    verify(productDAO, times(1)).getAllProductsByIdOwner(any(Long.TYPE));
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
   }
 
   @Test
-  void getAllProductsByIdOwnerException() {
+  void checkAllProductsPresenceByIdOwnerFalse() {
+    List<Product> allExistingProductsByOwner =
+        Arrays.asList(new Product(1L), new Product(2L), new Product(3L));
+    User productOwner = new User(1L);
+
+    given(productDAO.getAllProductsByIdOwner(any(Long.class))).willReturn(null);
+    boolean productsExists =
+        productService.checkAllProductsPresenceByIdOwner(allExistingProductsByOwner, productOwner);
+
+    assertThat(productsExists).isFalse();
+
+    verify(productDAO, times(1)).getAllProductsByIdOwner(any(Long.TYPE));
+    verify(productDAO, never()).deleteProduct(any(Long.TYPE));
+  }
+
+  @Test
+  void checkAllProductsPresenceByIdOwnerException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow().when(productDAO).getAllProductsByIdOwner(any(Long.class));
+          given(productDAO.getAllProductsByIdOwner(any(Long.TYPE))).willThrow(Exception.class);
+          productService.checkAllProductsPresenceByIdOwner(any(), any(User.class));
         });
   }
 }

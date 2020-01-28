@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -29,9 +27,43 @@ class UserServiceTest {
   }
 
   @Test
+  void checkUserAdditionTrue() {
+    User addedUser = new User(1L);
+
+    given(userDAO.addUser(any(User.class))).willReturn(addedUser);
+    boolean userExists = userService.checkUserAddition(addedUser);
+
+    assertThat(userExists).isTrue();
+
+    verify(userDAO, times(1)).addUser(addedUser);
+  }
+
+  @Test
+  void checkUserAdditionFalse() {
+    given(userDAO.addUser(any(User.class))).willReturn(null);
+    boolean userExists = userService.checkUserAddition(new User(1L));
+
+    assertThat(userExists).isFalse();
+
+    verify(userDAO, times(1)).addUser(new User(1L));
+  }
+
+  @Test
+  void checkUserAdditionException() {
+    assertThrows(
+        Exception.class,
+        () -> {
+          given(userDAO.addUser(any(User.class))).willThrow(Exception.class);
+          userService.checkUserAddition(any(User.class));
+        });
+  }
+
+  @Test
   public void checkUserPresenceTrue() {
-    given(userDAO.getUserById(1L)).willReturn(new User(1L));
-    boolean userExists = userService.checkUserPresence(new User(1L));
+    User userReceived = new User(1L);
+
+    given(userDAO.getUserById(any(Long.TYPE))).willReturn(userReceived);
+    boolean userExists = userService.checkUserPresence(userReceived);
 
     assertThat(userExists).isTrue();
 
@@ -40,7 +72,7 @@ class UserServiceTest {
 
   @Test
   public void checkUserPresenceFalse() {
-    given(userDAO.getUserById(1L)).willReturn(null);
+    given(userDAO.getUserById(any(Long.TYPE))).willReturn(null);
     boolean userExists = userService.checkUserPresence(new User(1L));
 
     assertThat(userExists).isFalse();
@@ -53,26 +85,8 @@ class UserServiceTest {
     assertThrows(
         Exception.class,
         () -> {
-          given(userDAO.getUserById(any(Long.class))).willThrow(Exception.class);
+          given(userDAO.getUserById(any(Long.TYPE))).willThrow(Exception.class);
           userService.checkUserPresence(any(User.class));
-        });
-  }
-
-  @Test
-  public void addUserTest() {
-    doNothing().when(userDAO).addUser(any(User.class));
-
-    userDAO.addUser(new User(1L));
-
-    verify(userDAO, times(1)).addUser(new User(1L));
-  }
-
-  @Test
-  public void addUserException() {
-    assertThrows(
-        Exception.class,
-        () -> {
-          doThrow().when(userDAO).addUser(any(User.class));
         });
   }
 }

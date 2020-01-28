@@ -17,10 +17,10 @@ public class StatusTypeService {
     this.statusTypeDAO = statusTypeDAO;
   }
 
-  public boolean checkStatusTypePresence(StatusType statusType) {
+  public boolean checkStatusTypePresence(StatusType status) {
 
-    StatusType statusTypeExample = statusTypeDAO.getStatusById(statusType.getStatusId());
+    StatusType existingStatus = statusTypeDAO.getStatusById(status.getStatusId());
 
-    return statusTypeExample != null;
+    return existingStatus != null;
   }
 }

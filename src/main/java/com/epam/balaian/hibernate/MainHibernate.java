@@ -4,11 +4,8 @@ import com.epam.balaian.hibernate.dao.BiddingDAO;
 import com.epam.balaian.hibernate.dao.BiddingDAOImpl;
 import com.epam.balaian.hibernate.dao.ProductDAO;
 import com.epam.balaian.hibernate.dao.ProductDAOImpl;
-import com.epam.balaian.hibernate.dao.RoleDAOImpl;
 import com.epam.balaian.hibernate.dao.UserDAO;
 import com.epam.balaian.hibernate.dao.UserDAOImpl;
-import com.epam.balaian.hibernate.model.Product;
-import com.epam.balaian.hibernate.model.User;
 
 /**
  * @author Vardan Balaian
@@ -19,23 +16,23 @@ public class MainHibernate {
 
   public static void main(String[] args) {
     UserDAO userDAO = new UserDAOImpl();
-    User newUser = new User();
-    newUser.setLoginName("super_zombie");
-    newUser.setPassword("zom123");
-    newUser.setFullName("Zack Sheder");
-    newUser.setCity("Paris");
-    newUser.setEmail("fergok@gm.com");
-    newUser.setPhoneNumber("+53421234");
-    newUser.setUserRole(new RoleDAOImpl().getRoleById(2));
-    userDAO.addUser(newUser); // add user
+    //    User newUser = new User();
+    //    newUser.setLoginName("super_zombie");
+    //    newUser.setPassword("zom123");
+    //    newUser.setFullName("Zack Sheder");
+    //    newUser.setCity("Paris");
+    //    newUser.setEmail("fergok@gm.com");
+    //    newUser.setPhoneNumber("+53421234");
+    //    newUser.setUserRole(new RoleDAOImpl().getRoleById(2));
+    //    userDAO.addUser(newUser); // add user
 
     ProductDAO productDAO = new ProductDAOImpl();
-    Product newProduct = new Product();
-    newProduct.setProductTitle("Canvas");
-    newProduct.setDescription("10 colors have");
-    newProduct.setProductOwner(newUser);
-    newProduct.setBiddingByProduct(new BiddingDAOImpl().getBiddingById(3));
-    productDAO.addProduct(newProduct); // add product
+    //    Product newProduct = new Product();
+    //    newProduct.setProductTitle("Canvas");
+    //    newProduct.setDescription("10 colors have");
+    //    newProduct.setProductOwner(newUser);
+    //    newProduct.setBiddingByProduct(new BiddingDAOImpl().getBiddingById(3));
+    //    productDAO.addProduct(newProduct); // add product
 
     //        productDAO.deleteProduct(10); // delete product
     //
@@ -65,7 +62,5 @@ public class MainHibernate {
 
     //        System.out.println(biddingDAO.getAllBiddingByIdSupposedBidder(1)); // show all
     // bidding by Supposed Bidder
-
-    // todo: add tests
   }
 }

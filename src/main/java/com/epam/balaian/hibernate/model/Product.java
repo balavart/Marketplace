@@ -35,6 +35,12 @@ public class Product {
     this.productId = productId;
   }
 
+  public Product(String productTitle, String description, Long productId) {
+    this.productTitle = productTitle;
+    this.description = description;
+    this.productId = productId;
+  }
+
   public Product() {}
 
   @Id

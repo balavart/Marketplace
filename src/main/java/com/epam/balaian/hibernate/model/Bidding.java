@@ -38,6 +38,13 @@ public class Bidding {
     this.biddingId = biddingId;
   }
 
+  public Bidding(Double startingPrice, Date offerEndDate, StatusType status, long biddingId) {
+    this.startingPrice = startingPrice;
+    this.offerEndDate = offerEndDate;
+    this.biddingStatus = status;
+    this.biddingId = biddingId;
+  }
+
   public Bidding() {}
 
   @Id

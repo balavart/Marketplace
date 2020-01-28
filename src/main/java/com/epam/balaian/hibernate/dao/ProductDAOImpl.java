@@ -20,12 +20,13 @@ public class ProductDAOImpl implements ProductDAO {
   }
 
   @Override
-  public void addProduct(Product product) {
+  public Product addProduct(Product product) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
 
     try {
       session.save(product);
+      return product;
     } finally {
       tx.commit();
       session.close();
@@ -45,7 +46,7 @@ public class ProductDAOImpl implements ProductDAO {
   }
 
   @Override
-  public void editProduct(String title, String description, long productId) {
+  public Product editProduct(String title, String description, long productId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
@@ -53,6 +54,7 @@ public class ProductDAOImpl implements ProductDAO {
       productToUpdate.setProductTitle(title);
       productToUpdate.setDescription(description);
       session.update(productToUpdate);
+      return productToUpdate;
     } finally {
       tx.commit();
       session.close();
@@ -60,12 +62,13 @@ public class ProductDAOImpl implements ProductDAO {
   }
 
   @Override
-  public void deleteProduct(long productId) {
+  public Product deleteProduct(long productId) {
     final Session session = factory.openSession();
     Transaction tx = session.beginTransaction();
     try {
       Product productToRemove = session.get(Product.class, productId);
       session.delete(productToRemove);
+      return productToRemove;
     } finally {
       tx.commit();
       session.close();

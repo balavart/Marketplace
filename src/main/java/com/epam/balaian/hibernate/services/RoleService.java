@@ -17,8 +17,8 @@ public class RoleService {
   }
 
   public boolean checkRolePresence(Role role) {
-    Role roleExample = roleDAO.getRoleById(role.getRoleId());
+    Role existingRole = roleDAO.getRoleById(role.getRoleId());
 
-    return roleExample != null;
+    return existingRole != null;
   }
 }

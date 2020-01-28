@@ -4,19 +4,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import com.epam.balaian.hibernate.dao.BiddingDAO;
 import com.epam.balaian.hibernate.model.Bidding;
 import com.epam.balaian.hibernate.model.StatusType;
+import com.epam.balaian.hibernate.model.User;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
@@ -38,25 +35,60 @@ class BiddingServiceTest {
   }
 
   @Test
+  void checkBiddingAdditionTrue() {
+    Bidding addedBidding = new Bidding(555.55, Date.valueOf("2021-03-31"), new StatusType(), 1L);
+
+    given(biddingDAO.addBidding(any(Bidding.class))).willReturn(addedBidding);
+    boolean biddingExists = biddingService.checkBiddingAddition(addedBidding);
+
+    assertThat(biddingExists).isTrue();
+
+    verify(biddingDAO, times(1)).addBidding(addedBidding);
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
+  }
+
+  @Test
+  void checkBiddingAdditionFalse() {
+    given(biddingDAO.addBidding(any(Bidding.class))).willReturn(null);
+    boolean biddingExists = biddingService.checkBiddingAddition(new Bidding(1L));
+
+    assertThat(biddingExists).isFalse();
+
+    verify(biddingDAO, times(1)).addBidding(new Bidding(1L));
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
+  }
+
+  @Test
+  void checkBiddingAdditionException() {
+    assertThrows(
+        Exception.class,
+        () -> {
+          given(biddingDAO.addBidding(any(Bidding.class))).willThrow(Exception.class);
+          biddingService.checkBiddingAddition(any(Bidding.class));
+        });
+  }
+
+  @Test
   void checkBiddingPresenceTrue() {
-    given(biddingDAO.getBiddingById(1L)).willReturn(new Bidding(1L));
-    boolean biddingExists = biddingService.checkBiddingPresence(new Bidding(1L));
+    Bidding biddingReceived = new Bidding(555.55, Date.valueOf("2021-03-31"), new StatusType(), 1L);
+    given(biddingDAO.getBiddingById(any(Long.TYPE))).willReturn(biddingReceived);
+    boolean biddingExists = biddingService.checkBiddingPresence(biddingReceived);
 
     assertThat(biddingExists).isTrue();
 
     verify(biddingDAO, times(1)).getBiddingById(1L);
-    verify(biddingDAO, never()).deleteBidding(any(Long.class));
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
   }
 
   @Test
   void checkBiddingPresenceFalse() {
-    given(biddingDAO.getBiddingById(1L)).willReturn(null);
+    given(biddingDAO.getBiddingById(any(Long.TYPE))).willReturn(null);
     boolean biddingExists = biddingService.checkBiddingPresence(new Bidding(1L));
 
     assertThat(biddingExists).isFalse();
 
     verify(biddingDAO, times(1)).getBiddingById(1L);
-    verify(biddingDAO, never()).deleteBidding(any(Long.class));
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
   }
 
   @Test
@@ -65,109 +97,173 @@ class BiddingServiceTest {
         Exception.class,
         () -> {
           given(biddingDAO.getBiddingById(any(Long.class))).willThrow(Exception.class);
-          biddingService.checkBiddingPresence(new Bidding(1L));
+          biddingService.checkBiddingPresence(any(Bidding.class));
         });
   }
 
   @Test
-  void addBiddingTest() {
-    doNothing().when(biddingDAO).addBidding(any(Bidding.class));
+  void checkBiddingEditingTrue() {
+    Bidding editedBidding = new Bidding(555.55, Date.valueOf("2021-03-31"), new StatusType(), 1L);
 
-    biddingDAO.addBidding(new Bidding(1L));
+    given(
+            biddingDAO.editBidding(
+                isA(Double.TYPE), isA(Date.class), isA(StatusType.class), isA(Long.TYPE)))
+        .willReturn(editedBidding);
+    boolean biddingExists = biddingService.checkBiddingEditing(editedBidding);
 
-    verify(biddingDAO, times(1)).addBidding(new Bidding(1L));
-    verify(biddingDAO, never()).deleteBidding(any(Long.class));
-  }
-
-  @Test
-  void addBiddingException() {
-    assertThrows(
-        Exception.class,
-        () -> {
-          doThrow().when(biddingDAO).addBidding(isNull());
-        });
-  }
-
-  @Test
-  void editBiddingTest() {
-    doNothing()
-        .when(biddingDAO)
-        .editBidding(isA(Double.class), isA(Date.class), isA(StatusType.class), isA(Long.class));
-
-    biddingDAO.editBidding(222.22, Date.valueOf("2021-03-31"), new StatusType(), 1L);
+    assertThat(biddingExists).isTrue();
 
     verify(biddingDAO, times(1))
-        .editBidding(isA(Double.class), isA(Date.class), isA(StatusType.class), isA(Long.class));
-    verify(biddingDAO, never()).deleteBidding(any(Long.class));
+        .editBidding(isA(Double.TYPE), isA(Date.class), isA(StatusType.class), isA(Long.TYPE));
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
   }
 
   @Test
-  void editBiddingException() {
+  void checkBiddingEditingFalse() {
+    given(
+            biddingDAO.editBidding(
+                isA(Double.TYPE), isA(Date.class), isA(StatusType.class), isA(Long.TYPE)))
+        .willReturn(null);
+    boolean biddingExists =
+        biddingService.checkBiddingEditing(
+            new Bidding(555.55, Date.valueOf("2021-03-31"), new StatusType(), 1L));
+
+    assertThat(biddingExists).isFalse();
+
+    verify(biddingDAO, times(1))
+        .editBidding(isA(Double.TYPE), isA(Date.class), isA(StatusType.class), isA(Long.TYPE));
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
+  }
+
+  @Test
+  void checkBiddingEditingException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow()
-              .when(biddingDAO)
-              .editBidding(
-                  isA(Double.class), isA(Date.class), isA(StatusType.class), isA(Long.class));
+          given(
+                  biddingDAO.editBidding(
+                      isA(Double.TYPE), isA(Date.class), isA(StatusType.class), isA(Long.TYPE)))
+              .willThrow(Exception.class);
+          biddingService.checkBiddingEditing(any(Bidding.class));
         });
   }
 
   @Test
-  void deleteBiddingTest() {
-    doNothing().when(biddingDAO).deleteBidding(isA(Long.class));
-    biddingDAO.deleteBidding(1L);
+  void checkBiddingRemovalTrue() {
+    Bidding deletedBidding = new Bidding(555.55, Date.valueOf("2021-03-31"), new StatusType(), 1L);
 
-    verify(biddingDAO, times(1)).deleteBidding(1L);
-    verify(biddingDAO, atLeastOnce()).deleteBidding(any(Long.class));
+    given(biddingDAO.deleteBidding(any(Long.TYPE))).willReturn(deletedBidding);
+    boolean biddingExists = biddingService.checkBiddingRemoval(deletedBidding);
+
+    assertThat(biddingExists).isTrue();
+
+    verify(biddingDAO, times(1)).deleteBidding(any(Long.TYPE));
+    verify(biddingDAO, atLeastOnce()).deleteBidding(any(Long.TYPE));
   }
 
   @Test
-  void deleteBiddingException() {
+  void checkBiddingRemovalFalse() {
+    given(biddingDAO.deleteBidding(any(Long.TYPE))).willReturn(null);
+    boolean biddingExists =
+        biddingService.checkBiddingRemoval(
+            new Bidding(555.55, Date.valueOf("2021-03-31"), new StatusType(), 1L));
+
+    assertThat(biddingExists).isFalse();
+
+    verify(biddingDAO, times(1)).deleteBidding(any(Long.TYPE));
+    verify(biddingDAO, atLeastOnce()).deleteBidding(any(Long.TYPE));
+  }
+
+  @Test
+  void checkBiddingRemovalException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow().when(biddingDAO).deleteBidding(any(Long.class));
+          given(biddingDAO.deleteBidding(any(Long.TYPE))).willThrow(Exception.class);
+          biddingService.checkBiddingRemoval(any(Bidding.class));
         });
   }
 
   @Test
-  void getAllBiddingTest() {
-    List<Bidding> biddingList = Arrays.asList(new Bidding(1L), new Bidding(2L));
+  void checkAllBiddingPresenceTrue() {
+    List<Bidding> allExistingBidding =
+        Arrays.asList(new Bidding(1L), new Bidding(2L), new Bidding(3L));
 
-    when(biddingDAO.getAllBidding()).thenReturn(biddingList);
+    given(biddingDAO.getAllBidding()).willReturn(allExistingBidding);
+    boolean biddingExists = biddingService.checkAllBiddingPresence(allExistingBidding);
 
-    biddingDAO.getAllBidding();
+    assertThat(biddingExists).isTrue();
 
     verify(biddingDAO, times(1)).getAllBidding();
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
   }
 
   @Test
-  void getAllBiddingException() {
+  void checkAllBiddingPresenceFalse() {
+    given(biddingDAO.getAllBidding()).willReturn(null);
+    boolean biddingExists =
+        biddingService.checkAllBiddingPresence(
+            Arrays.asList(new Bidding(1L), new Bidding(2L), new Bidding(3L)));
+
+    assertThat(biddingExists).isFalse();
+
+    verify(biddingDAO, times(1)).getAllBidding();
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
+  }
+
+  @Test
+  void checkAllBiddingPresenceException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow().when(biddingDAO).getAllBidding();
+          given(biddingDAO.getAllBidding()).willThrow(Exception.class);
+          biddingService.checkAllBiddingPresence(any());
         });
   }
 
   @Test
-  void getAllBiddingByIdSupposedBidderTest() {
-    List<Bidding> biddingList = Arrays.asList(new Bidding(1L), new Bidding(2L));
+  void checkAllBiddingPresenceByIdSupposedBidderTrue() {
+    List<Bidding> allExistingBiddingBySupposedBidder =
+        Arrays.asList(new Bidding(1L), new Bidding(2L), new Bidding(3L));
+    User supposedBidder = new User(1L);
 
-    when(biddingDAO.getAllBiddingByIdSupposedBidder(any(Long.class))).thenReturn(biddingList);
+    given(biddingDAO.getAllBiddingByIdSupposedBidder(any(Long.TYPE)))
+        .willReturn(allExistingBiddingBySupposedBidder);
+    boolean biddingExists =
+        biddingService.checkAllBiddingPresenceByIdSupposedBidder(
+            allExistingBiddingBySupposedBidder, supposedBidder);
 
-    biddingDAO.getAllBiddingByIdSupposedBidder(any(Long.class));
+    assertThat(biddingExists).isTrue();
 
-    verify(biddingDAO, times(1)).getAllBiddingByIdSupposedBidder(any(Long.class));
+    verify(biddingDAO, times(1)).getAllBiddingByIdSupposedBidder(any(Long.TYPE));
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
   }
 
   @Test
-  void getAllBiddingByIdSupposedBidderException() {
+  void checkAllBiddingPresenceByIdSupposedBidderFalse() {
+    List<Bidding> allExistingBiddingBySupposedBidder =
+        Arrays.asList(new Bidding(1L), new Bidding(2L), new Bidding(3L));
+    User supposedBidder = new User(1L);
+
+    given(biddingDAO.getAllBiddingByIdSupposedBidder(any(Long.TYPE))).willReturn(null);
+    boolean biddingExists =
+        biddingService.checkAllBiddingPresenceByIdSupposedBidder(
+            allExistingBiddingBySupposedBidder, supposedBidder);
+
+    assertThat(biddingExists).isFalse();
+
+    verify(biddingDAO, times(1)).getAllBiddingByIdSupposedBidder(any(Long.TYPE));
+    verify(biddingDAO, never()).deleteBidding(any(Long.TYPE));
+  }
+
+  @Test
+  void checkAllBiddingPresenceByIdSupposedBidderException() {
     assertThrows(
         Exception.class,
         () -> {
-          doThrow().when(biddingDAO).getAllBiddingByIdSupposedBidder(any(Long.class));
+          given(biddingDAO.getAllBiddingByIdSupposedBidder(any(Long.TYPE)))
+              .willThrow(Exception.class);
+          biddingService.checkAllBiddingPresenceByIdSupposedBidder(any(), any(User.class));
         });
   }
 }

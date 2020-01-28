@@ -16,9 +16,15 @@ public class UserService {
     this.userDAO = userDAO;
   }
 
-  public boolean checkUserPresence(User user) {
-    User userExample = userDAO.getUserById(user.getUserId());
+  public boolean checkUserAddition(User user) {
+    User addedUser = userDAO.addUser(user);
 
-    return userExample != null;
+    return addedUser != null;
+  }
+
+  public boolean checkUserPresence(User user) {
+    User existingUser = userDAO.getUserById(user.getUserId());
+
+    return existingUser != null;
   }
 }
