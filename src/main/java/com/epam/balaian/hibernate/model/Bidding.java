@@ -38,6 +38,8 @@ public class Bidding {
     this.biddingId = biddingId;
   }
 
+  public Bidding() {}
+
   public Bidding(Double startingPrice, Date offerEndDate, StatusType status, long biddingId) {
     this.startingPrice = startingPrice;
     this.offerEndDate = offerEndDate;
@@ -45,7 +47,18 @@ public class Bidding {
     this.biddingId = biddingId;
   }
 
-  public Bidding() {}
+  public Bidding(
+      Double startingPrice,
+      Date offerEndDate,
+      Double bestOffer,
+      User userAsSupposedBidder,
+      StatusType biddingStatus) {
+    this.startingPrice = startingPrice;
+    this.offerEndDate = offerEndDate;
+    this.bestOffer = bestOffer;
+    this.userAsSupposedBidder = userAsSupposedBidder;
+    this.biddingStatus = biddingStatus;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

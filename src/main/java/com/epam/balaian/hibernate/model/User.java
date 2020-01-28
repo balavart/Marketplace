@@ -37,11 +37,28 @@ public class User {
   private List<Product> productsByUser;
   private Role userRole;
 
+  public User() {}
+
   public User(Long userId) {
     this.userId = userId;
   }
 
-  public User() {}
+  public User(
+      String loginName,
+      String password,
+      String fullName,
+      String city,
+      String email,
+      String phoneNumber,
+      Role role) {
+    this.loginName = loginName;
+    this.password = password;
+    this.fullName = fullName;
+    this.city = city;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.userRole = role;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

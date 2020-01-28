@@ -1,11 +1,8 @@
 package com.epam.balaian.hibernate.dao;
 
 import com.epam.balaian.hibernate.model.Product;
+import com.epam.balaian.hibernate.services.SessionTerminal;
 import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 /**
  * @author Vardan Balaian
@@ -13,89 +10,46 @@ import org.hibernate.cfg.Configuration;
  * @since 1.8
  */
 public class ProductDAOImpl implements ProductDAO {
-  private final SessionFactory factory;
-
-  public ProductDAOImpl() {
-    this.factory = new Configuration().configure().buildSessionFactory();
-  }
 
   @Override
   public Product addProduct(Product product) {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-
-    try {
-      session.save(product);
-      return product;
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    SessionTerminal.factory.getCurrentSession().save(product);
+    return product;
   }
 
   @Override
   public Product getByProductId(long productId) {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-    try {
-      return session.get(Product.class, productId);
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    return SessionTerminal.factory.getCurrentSession().get(Product.class, productId);
   }
 
   @Override
   public Product editProduct(String title, String description, long productId) {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-    try {
-      Product productToUpdate = session.get(Product.class, productId);
-      productToUpdate.setProductTitle(title);
-      productToUpdate.setDescription(description);
-      session.update(productToUpdate);
-      return productToUpdate;
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    Product productToUpdate =
+        SessionTerminal.factory.getCurrentSession().get(Product.class, productId);
+    productToUpdate.setProductTitle(title);
+    productToUpdate.setDescription(description);
+    SessionTerminal.factory.getCurrentSession().update(productToUpdate);
+    return productToUpdate;
   }
 
   @Override
   public Product deleteProduct(long productId) {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-    try {
-      Product productToRemove = session.get(Product.class, productId);
-      session.delete(productToRemove);
-      return productToRemove;
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    Product productToRemove =
+        SessionTerminal.factory.getCurrentSession().get(Product.class, productId);
+    SessionTerminal.factory.getCurrentSession().delete(productToRemove);
+    return productToRemove;
   }
 
   @Override
   public List<Product> getAllProducts() {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-    try {
-      return session.createQuery("from Product").list();
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    return SessionTerminal.factory.getCurrentSession().createQuery("from Product").list();
   }
 
   @Override
   public List<Product> getAllProductsByIdOwner(long idOwner) {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-    try {
-      return session.createQuery("from Product where productId = " + idOwner).list();
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    return SessionTerminal.factory
+        .getCurrentSession()
+        .createQuery("from Product where productId = " + idOwner)
+        .list();
   }
 }

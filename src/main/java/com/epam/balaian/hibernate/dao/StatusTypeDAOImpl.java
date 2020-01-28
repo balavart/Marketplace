@@ -1,10 +1,7 @@
 package com.epam.balaian.hibernate.dao;
 
 import com.epam.balaian.hibernate.model.StatusType;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import com.epam.balaian.hibernate.services.SessionTerminal;
 
 /**
  * @author Vardan Balaian
@@ -12,21 +9,9 @@ import org.hibernate.cfg.Configuration;
  * @since 1.8
  */
 public class StatusTypeDAOImpl implements StatusTypeDAO {
-  private final SessionFactory factory;
-
-  public StatusTypeDAOImpl() {
-    this.factory = new Configuration().configure().buildSessionFactory();
-  }
 
   @Override
   public StatusType getStatusById(int statusId) {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-    try {
-      return (StatusType) session.get(StatusType.class, statusId);
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    return (StatusType) SessionTerminal.factory.getCurrentSession().get(StatusType.class, statusId);
   }
 }

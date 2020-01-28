@@ -31,6 +31,8 @@ public class Product {
   private User productOwner;
   private Bidding biddingByProduct;
 
+  public Product() {}
+
   public Product(Long productId) {
     this.productId = productId;
   }
@@ -41,7 +43,13 @@ public class Product {
     this.productId = productId;
   }
 
-  public Product() {}
+  public Product(
+      String productTitle, String description, User productOwner, Bidding biddingByProduct) {
+    this.productTitle = productTitle;
+    this.description = description;
+    this.productOwner = productOwner;
+    this.biddingByProduct = biddingByProduct;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

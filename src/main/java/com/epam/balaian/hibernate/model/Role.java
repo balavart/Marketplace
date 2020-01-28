@@ -28,11 +28,11 @@ public class Role {
   private String roleTitle;
   private List<User> usersByRole;
 
+  public Role() {}
+
   public Role(Integer roleId) {
     this.roleId = roleId;
   }
-
-  public Role() {}
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

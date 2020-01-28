@@ -1,10 +1,7 @@
 package com.epam.balaian.hibernate.dao;
 
 import com.epam.balaian.hibernate.model.Role;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import com.epam.balaian.hibernate.services.SessionTerminal;
 
 /**
  * @author Vardan Balaian
@@ -12,21 +9,9 @@ import org.hibernate.cfg.Configuration;
  * @since 1.8
  */
 public class RoleDAOImpl implements RoleDAO {
-  private final SessionFactory factory;
-
-  public RoleDAOImpl() {
-    this.factory = new Configuration().configure().buildSessionFactory();
-  }
 
   @Override
   public Role getRoleById(int roleId) {
-    final Session session = factory.openSession();
-    Transaction tx = session.beginTransaction();
-    try {
-      return (Role) session.get(Role.class, roleId);
-    } finally {
-      tx.commit();
-      session.close();
-    }
+    return (Role) SessionTerminal.factory.getCurrentSession().get(Role.class, roleId);
   }
 }

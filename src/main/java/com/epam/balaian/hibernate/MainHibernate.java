@@ -4,8 +4,19 @@ import com.epam.balaian.hibernate.dao.BiddingDAO;
 import com.epam.balaian.hibernate.dao.BiddingDAOImpl;
 import com.epam.balaian.hibernate.dao.ProductDAO;
 import com.epam.balaian.hibernate.dao.ProductDAOImpl;
+import com.epam.balaian.hibernate.dao.RoleDAO;
+import com.epam.balaian.hibernate.dao.RoleDAOImpl;
+import com.epam.balaian.hibernate.dao.StatusTypeDAO;
+import com.epam.balaian.hibernate.dao.StatusTypeDAOImpl;
 import com.epam.balaian.hibernate.dao.UserDAO;
 import com.epam.balaian.hibernate.dao.UserDAOImpl;
+import com.epam.balaian.hibernate.model.Bidding;
+import com.epam.balaian.hibernate.model.Product;
+import com.epam.balaian.hibernate.model.Role;
+import com.epam.balaian.hibernate.model.StatusType;
+import com.epam.balaian.hibernate.model.User;
+import com.epam.balaian.hibernate.services.SessionTerminal;
+import java.sql.Date;
 
 /**
  * @author Vardan Balaian
@@ -15,52 +26,27 @@ import com.epam.balaian.hibernate.dao.UserDAOImpl;
 public class MainHibernate {
 
   public static void main(String[] args) {
+    SessionTerminal.openSessionAndTransaction();
+
+    RoleDAO roleDAO = new RoleDAOImpl();
+    Role role = roleDAO.getRoleById(2);
+
+    StatusTypeDAO statusTypeDAO = new StatusTypeDAOImpl();
+    StatusType status = statusTypeDAO.getStatusById(2);
+
+    User newUser =
+        new User("cat", "caty good", "Cat Notdog", "Catland", "ds@email.com", "+34554322", role);
     UserDAO userDAO = new UserDAOImpl();
-    //    User newUser = new User();
-    //    newUser.setLoginName("super_zombie");
-    //    newUser.setPassword("zom123");
-    //    newUser.setFullName("Zack Sheder");
-    //    newUser.setCity("Paris");
-    //    newUser.setEmail("fergok@gm.com");
-    //    newUser.setPhoneNumber("+53421234");
-    //    newUser.setUserRole(new RoleDAOImpl().getRoleById(2));
-    //    userDAO.addUser(newUser); // add user
+    userDAO.addUser(newUser);
 
-    ProductDAO productDAO = new ProductDAOImpl();
-    //    Product newProduct = new Product();
-    //    newProduct.setProductTitle("Canvas");
-    //    newProduct.setDescription("10 colors have");
-    //    newProduct.setProductOwner(newUser);
-    //    newProduct.setBiddingByProduct(new BiddingDAOImpl().getBiddingById(3));
-    //    productDAO.addProduct(newProduct); // add product
-
-    //        productDAO.deleteProduct(10); // delete product
-    //
-    //          productDAO.editProduct("Bird", "Little",7); // edit product
-    //
-    //        System.out.println(productDAO.getAllProducts()); // show all products
-    //
-    //        System.out.println(productDAO.getAllProductsByIdOwner(3)); // show all products by
-    // Owner
-
+    Bidding newBidding = new Bidding(555.55, Date.valueOf("2021-03-31"), null, null, status);
     BiddingDAO biddingDAO = new BiddingDAOImpl();
-    //    Bidding bidding = new Bidding();
-    //    bidding.setStartingPrice(555.55);
-    //    bidding.setOfferEndDate(Date.valueOf("2021-03-31"));
-    //    bidding.setBestOffer(null);
-    //    bidding.setUserBySupposedBidderIdFk(null);
-    //    bidding.setStatusTypeByStatusIdFk(new StatusTypeDAOImpl().getStatusById(1));
-    //    biddingDAO.addBidding(bidding); // add bidding
+    biddingDAO.addBidding(newBidding);
 
-    //    biddingDAO.deleteBidding(6); // delete bidding
+    Product newProduct = new Product("headphones", "power and style", newUser, newBidding);
+    ProductDAO productDAO = new ProductDAOImpl();
+    productDAO.addProduct(newProduct);
 
-    //    biddingDAO.editBidding(
-    //        111.11, Date.valueOf("2023-01-13"), new StatusTypeDAOImpl().getStatusById(2),
-    // 7); // edit bidding
-
-    //            System.out.println(biddingDAO.getAllBidding()); // show all bidding
-
-    //        System.out.println(biddingDAO.getAllBiddingByIdSupposedBidder(1)); // show all
-    // bidding by Supposed Bidder
+    SessionTerminal.closeSessionAndTransaction();
   }
 }

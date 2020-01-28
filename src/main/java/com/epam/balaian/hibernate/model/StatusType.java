@@ -28,11 +28,11 @@ public class StatusType {
   private String statusTitle;
   private List<Bidding> biddingByStatus;
 
+  public StatusType() {}
+
   public StatusType(Integer statusId) {
     this.statusId = statusId;
   }
-
-  public StatusType() {}
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

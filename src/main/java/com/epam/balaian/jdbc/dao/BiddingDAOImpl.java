@@ -117,8 +117,7 @@ public class BiddingDAOImpl implements BiddingDAO {
     try (Connection connection = DAOFactoryImpl.getConnection();
         PreparedStatement preparedStatement =
             connection.prepareStatement(
-                sqlBiddingDelete
-                /*"DELETE FROM marketplace.bidding WHERE marketplace.bidding.idBidding = ?"*/ )) {
+                sqlBiddingDelete)) {
       System.out.println("Connection established");
 
       preparedStatement.setLong(1, idBidding);
