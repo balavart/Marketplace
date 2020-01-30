@@ -1,4 +1,4 @@
-package com.epam.balaian.jdbc.dao;
+package com.epam.balaian.jdbc.dao.impl;
 
 import static com.epam.balaian.jdbc.dao.BDScheme.DESCRIPTION;
 import static com.epam.balaian.jdbc.dao.BDScheme.ID_BIDDING_FK;
@@ -7,6 +7,7 @@ import static com.epam.balaian.jdbc.dao.BDScheme.ID_PRODUCT_OWNER_FK;
 import static com.epam.balaian.jdbc.dao.BDScheme.PRODUCT_TABLE;
 import static com.epam.balaian.jdbc.dao.BDScheme.PRODUCT_TITLE;
 
+import com.epam.balaian.jdbc.dao.ProductDAO;
 import com.epam.balaian.jdbc.model.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

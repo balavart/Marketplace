@@ -103,24 +103,6 @@ public class Product {
   }
 
   @Override
-  public String toString() {
-    return "Product{"
-        + "productId="
-        + productId
-        + ", productTitle='"
-        + productTitle
-        + '\''
-        + ", description='"
-        + description
-        + '\''
-        + ", userByProductOwnerIdFk="
-        + productOwner
-        + ", biddingByBiddingIdFk="
-        + biddingByProduct
-        + '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

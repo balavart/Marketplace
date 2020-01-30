@@ -1,15 +1,15 @@
 package com.epam.balaian.hibernate;
 
 import com.epam.balaian.hibernate.dao.BiddingDAO;
-import com.epam.balaian.hibernate.dao.BiddingDAOImpl;
+import com.epam.balaian.hibernate.dao.impl.BiddingDAOImpl;
 import com.epam.balaian.hibernate.dao.ProductDAO;
-import com.epam.balaian.hibernate.dao.ProductDAOImpl;
+import com.epam.balaian.hibernate.dao.impl.ProductDAOImpl;
 import com.epam.balaian.hibernate.dao.RoleDAO;
-import com.epam.balaian.hibernate.dao.RoleDAOImpl;
+import com.epam.balaian.hibernate.dao.impl.RoleDAOImpl;
 import com.epam.balaian.hibernate.dao.StatusTypeDAO;
-import com.epam.balaian.hibernate.dao.StatusTypeDAOImpl;
+import com.epam.balaian.hibernate.dao.impl.StatusTypeDAOImpl;
 import com.epam.balaian.hibernate.dao.UserDAO;
-import com.epam.balaian.hibernate.dao.UserDAOImpl;
+import com.epam.balaian.hibernate.dao.impl.UserDAOImpl;
 import com.epam.balaian.hibernate.model.Bidding;
 import com.epam.balaian.hibernate.model.Product;
 import com.epam.balaian.hibernate.model.Role;
@@ -26,7 +26,6 @@ import java.sql.Date;
 public class MainHibernate {
 
   public static void main(String[] args) {
-    SessionTerminal.openSessionAndTransaction();
 
     RoleDAO roleDAO = new RoleDAOImpl();
     Role role = roleDAO.getRoleById(2);
@@ -46,7 +45,5 @@ public class MainHibernate {
     Product newProduct = new Product("headphones", "power and style", newUser, newBidding);
     ProductDAO productDAO = new ProductDAOImpl();
     productDAO.addProduct(newProduct);
-
-    SessionTerminal.closeSessionAndTransaction();
   }
 }

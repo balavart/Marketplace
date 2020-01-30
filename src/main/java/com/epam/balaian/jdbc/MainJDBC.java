@@ -2,7 +2,7 @@ package com.epam.balaian.jdbc;
 
 import com.epam.balaian.jdbc.dao.BiddingDAO;
 import com.epam.balaian.jdbc.dao.DAOFactory;
-import com.epam.balaian.jdbc.dao.DAOFactoryImpl;
+import com.epam.balaian.jdbc.dao.impl.DAOFactoryImpl;
 import com.epam.balaian.jdbc.dao.ProductDAO;
 import com.epam.balaian.jdbc.dao.UserDAO;
 import java.sql.SQLException;

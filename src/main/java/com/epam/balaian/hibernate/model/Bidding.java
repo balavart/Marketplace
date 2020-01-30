@@ -131,24 +131,6 @@ public class Bidding {
   }
 
   @Override
-  public String toString() {
-    return "Bidding{"
-        + "biddingId="
-        + biddingId
-        + ", startingPrice="
-        + startingPrice
-        + ", offerEndDate="
-        + offerEndDate
-        + ", bestOffer="
-        + bestOffer
-        + ", userBySupposedBidderIdFk="
-        + userAsSupposedBidder
-        + ", statusTypeByStatusIdFk="
-        + biddingStatus
-        + '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

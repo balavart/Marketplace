@@ -160,32 +160,6 @@ public class User {
   }
 
   @Override
-  public String toString() {
-    return "User{"
-        + "userId="
-        + userId
-        + ", loginName='"
-        + loginName
-        + '\''
-        + ", password='"
-        + password
-        + '\''
-        + ", fullName='"
-        + fullName
-        + '\''
-        + ", city='"
-        + city
-        + '\''
-        + ", email='"
-        + email
-        + '\''
-        + ", phoneNumber='"
-        + phoneNumber
-        + '\''
-        + '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

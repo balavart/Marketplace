@@ -65,11 +65,6 @@ public class StatusType {
   }
 
   @Override
-  public String toString() {
-    return "StatusType{" + "statusId=" + statusId + ", statusTitle='" + statusTitle + '\'' + '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

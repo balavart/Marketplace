@@ -1,4 +1,4 @@
-package com.epam.balaian.jdbc.dao;
+package com.epam.balaian.jdbc.dao.impl;
 
 import static com.epam.balaian.jdbc.dao.BDScheme.CITY;
 import static com.epam.balaian.jdbc.dao.BDScheme.EMAIL;
@@ -9,6 +9,7 @@ import static com.epam.balaian.jdbc.dao.BDScheme.PASSWORD;
 import static com.epam.balaian.jdbc.dao.BDScheme.PHONE_NUMBER;
 import static com.epam.balaian.jdbc.dao.BDScheme.USER_TABLE;
 
+import com.epam.balaian.jdbc.dao.UserDAO;
 import com.epam.balaian.jdbc.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

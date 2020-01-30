@@ -1,6 +1,7 @@
 package com.epam.balaian.hibernate.services;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -10,19 +11,19 @@ import org.hibernate.cfg.Configuration;
  */
 public class SessionTerminal {
 
-  public static final SessionFactory factory;
+  public static final SessionFactory FACTORY;
 
   static {
-    factory = new Configuration().configure().buildSessionFactory();
+    FACTORY = new Configuration().configure().buildSessionFactory();
   }
 
   public static void openSessionAndTransaction() {
-    factory.openSession();
-    factory.getCurrentSession().beginTransaction();
+    FACTORY.openSession();
+    FACTORY.getCurrentSession().beginTransaction();
   }
 
   public static void closeSessionAndTransaction() {
-    factory.getCurrentSession().getTransaction().commit();
-    factory.getCurrentSession().close();
+    FACTORY.getCurrentSession().getTransaction().commit();
+    FACTORY.getCurrentSession().close();
   }
 }

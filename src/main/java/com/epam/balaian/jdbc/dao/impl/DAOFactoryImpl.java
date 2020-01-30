@@ -1,5 +1,9 @@
-package com.epam.balaian.jdbc.dao;
+package com.epam.balaian.jdbc.dao.impl;
 
+import com.epam.balaian.jdbc.dao.BiddingDAO;
+import com.epam.balaian.jdbc.dao.DAOFactory;
+import com.epam.balaian.jdbc.dao.ProductDAO;
+import com.epam.balaian.jdbc.dao.UserDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
