@@ -11,6 +11,7 @@
   <link href="../css/element_styles.css" rel="stylesheet">
   <link href="../css/text_styles.css" rel="stylesheet">
   <link href="../css/hover_styles.css" rel="stylesheet">
+  <link href="../css/modal_style.css" rel="stylesheet">
 
   <script src="../js/registration_form_validation.js" type="text/javascript"></script>
   <script src="../js/elements_change.js" type="text/javascript"></script>
@@ -52,7 +53,7 @@
             <br>
             <label class="label_input" for="password">
               Password:
-              <input class="user_data_input" id="password" maxlength="10"
+              <input class="user_data_input" id="password" maxlength="20"
                      minlength="6" name="password" pattern="^[a-zA-Z0-9_-]{6,20}$"
                      placeholder="Create a password" required
                      title="Use 6-20 Latin characters. Only letters, numbers, hyphens and underscores are allowed."
@@ -81,7 +82,7 @@
               <input class="user_data_input" id="fullName" maxlength="40" minlength="2"
                      name="fullName"
                      pattern="^[A-Z][a-zA-Z\-]{1,20}\s[A-Z][a-zA-Z\-]{1,20}(\s[A-Z][a-zA-Z\-]{1,20})?$"
-                     placeholder="Enter Full name" required title="Use Latin characters. Only letters and hyphens are allowed. The first letter of each word is uppercase."
+                     placeholder="Enter Full name" required title="Use 2-40 Latin characters. Only letters and hyphens are allowed. The first letter of each word is uppercase."
                      type="text"
               />
             </label>
@@ -93,7 +94,7 @@
               City:
               <input class="user_data_input" id="city" list="cities" maxlength="30"
                      minlength="2" name="city" pattern="^[a-zA-Z]+(?:[- `][a-zA-Z]+)*$"
-                     placeholder="Enter city" required title="Use Latin characters. Only letters and hyphens are allowed."
+                     placeholder="Enter city" required title="Use 2-30 Latin characters. Only letters and hyphens are allowed."
                      type="text"
               />
               <datalist id="cities">
@@ -163,7 +164,7 @@
             <br>
             <label class="label_input" for="email">
               Email:
-              <input class="user_data_input" id="email" name="email"
+              <input class="user_data_input" id="email" name="email" minlength="2" maxlength="40"
                      pattern="^[_a-zA-Z0-9-\+-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,20})$"
                      placeholder="Enter email"
                      required title="someone@example.com"
@@ -190,8 +191,8 @@
 
 
           <p>
-            <button class="registration_button" type="submit">To register</button>
-            <button class="registration_button" type="reset">Reset forms</button>
+            <button class="registration-button" type="submit" id="dataSendButton">To register</button>
+            <button class="registration-button" type="reset">Reset forms</button>
           </p>
 
         </div>
@@ -207,6 +208,35 @@
 <footer class="footer"><p class="footer_text">Developed by student Balaian Vardan Ⓢ 2020</p>
 </footer>
 
+<!-- The Modal -->
+<div class="modal" id="wrongFillingModal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="wrongMessage">There are errors in filling out the form.</p>
+
+
+    <div class="modal-footer">
+      <button class="registration-button" id="exitButton" type="button">Exit</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="warningModal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="warningMessage">"By creating a profile, you consent to the processing of personal data."</p>
+
+    <div class="modal-footer">
+      <button class="registration-button" id="confirmButton" type="button">OK</button>
+      <button class="registration-button" id="negativeButton" type="button">Cancel</button>
+    </div>
+
+  </div>
+</div>
 </body>
 
 </html>
