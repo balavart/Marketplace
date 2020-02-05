@@ -89,6 +89,23 @@ h1:hover {
   letter-spacing: 1px;
 }
 
+.logout_link:hover{
+  background-color: wheat;
+  font-size: 1vw;
+  transition: .3s;
+  color: #9B2335;
+  border-right: 2px #612A05 solid;
+  border-left: 2px #612A05 solid;
+  border-bottom: 2px chocolate solid;
+  border-top: 2px chocolate solid;
+  letter-spacing: 1px;
+}
+
+.user_name_display:hover{
+  transition: .3s;
+  color: #4d5700;
+}
+
 .offer_button:hover {
   background-color: wheat;
   border-color: darkolivegreen;

@@ -33,6 +33,44 @@ body {
   margin: 5px 40%;
 }
 
+.logout_form{
+  position: relative;
+  border: black 2px solid;
+  width: 19%;
+  background-color: chocolate;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+  border-radius: 40px;
+  left: 80%;
+}
+
+.logout_link {
+  text-align: center;
+  text-decoration: none;
+  font-size: 1vw;
+  color: black;
+  font-family: 'Bowlby One SC', cursive;
+  text-shadow: 0 0 3px #D2B48C, 0 0 9px white;;
+  border: 2px solid wheat;
+  border-radius: 20px;
+  display: block;
+  padding: 1%;
+  margin: 6% 0 3% 22%;
+  width: 50%;
+}
+
+.user_name_display {
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.1vw;
+  color: black;
+  font-family: 'Bowlby One SC', cursive;
+  text-shadow: 0 0 3px #D2B48C, 0 0 9px white;;
+  display: block;
+  margin: 5%;
+  padding: 1%;
+}
+
 .adding_link {
   text-decoration: none;
   font-size: 1.2vw;
@@ -252,6 +290,38 @@ table {
   word-wrap: break-word;
 }
 
+.cell_text_align {
+  padding: 10px;
+  background-color: #D2B48C;
+  border-radius: 50px;
+  font-size: 1.1vw;
+  font-family: "Constantia", sans-serif;
+  max-width: 50px;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.sold_cell{
+  padding: 10px;
+  background-color: darkgoldenrod;
+  border-radius: 50px;
+  font-size: 1.1vw;
+  font-family: "Constantia", sans-serif;
+  max-width: 50px;
+  word-wrap: break-word;
+}
+
+.sold_cell_text_align{
+  padding: 10px;
+  background-color: darkgoldenrod;
+  border-radius: 50px;
+  font-size: 1.1vw;
+  font-family: "Constantia", sans-serif;
+  max-width: 50px;
+  word-wrap: break-word;
+  text-align: center;
+}
+
 .new_offer_cell {
   border-radius: 50px;
   font-family: "Bernard MT Condensed", cursive;
@@ -268,7 +338,7 @@ table {
   margin-right: 30%;
   padding-bottom: 10px;
   padding-top: 20px;
-  background-color: #E08119
+  background-color: #E08119;
 }
 
 input.invalid {
@@ -297,6 +367,19 @@ textarea.valid {
   border-radius: 20px;
   font-size: 1.3vw;
   font-family: "Constantia", sans-serif;
+}
+
+.cell_separator{
+  border-bottom: peru 2px solid;
+}
+
+.error_form{
+  color: red;
+  font-size: 25px;
+  font-family: Constantia,fantasy;
+  font-weight: 900;
+  background-color: burlywood;
+  border-radius: 10px;
 }
 
 .inputValidation{}

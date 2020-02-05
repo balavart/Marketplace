@@ -38,12 +38,12 @@ public class MainHibernate {
     UserDAO userDAO = new UserDAOImpl();
     userDAO.addUser(newUser);
 
-    Bidding newBidding = new Bidding(555.55, Date.valueOf("2021-03-31"), null, null, status);
-    BiddingDAO biddingDAO = new BiddingDAOImpl();
-    biddingDAO.addBidding(newBidding);
-
-    Product newProduct = new Product("headphones", "power and style", newUser, newBidding);
-    ProductDAO productDAO = new ProductDAOImpl();
-    productDAO.addProduct(newProduct);
+//    Bidding newBidding = new Bidding(555.55, Date.valueOf("2021-03-31"), null, null, status);
+//    BiddingDAO biddingDAO = new BiddingDAOImpl();
+//    biddingDAO.addBidding(newBidding);
+//
+//    Product newProduct = new Product("headphones", "power and style", newUser, newBidding);
+//    ProductDAO productDAO = new ProductDAOImpl();
+//    productDAO.addProduct(newProduct);
   }
 }
