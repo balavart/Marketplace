@@ -1,5 +1,6 @@
 package com.epam.balaian.hibernate.dao;
 
+import com.epam.balaian.hibernate.model.Bidding;
 import com.epam.balaian.hibernate.model.Product;
 import java.util.List;
 

@@ -150,7 +150,7 @@ h1:hover {
   border-top: 3px darkolivegreen solid;
   border-bottom: 3px darkolivegreen solid;
   text-shadow: 0 0 3px white, 0 0 6px whitesmoke;
-  padding: 1% 35% 1% 35%;
+  letter-spacing: 4px;
 }
 
 .adding_button:hover {

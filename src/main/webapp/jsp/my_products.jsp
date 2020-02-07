@@ -42,9 +42,14 @@
 
         <thead>
 
+
         <tr>
+
             <th class="new_action_link_position">
-                <a class="adding_link" href="">New auction</a>
+                <form autocomplete="off" method="post">
+                    <input type="hidden" name="hiddenProductAdding"/>
+                <button class="adding_link" type="submit">New auction</button>
+                </form>
             </th>
 
         </tr>
@@ -76,28 +81,29 @@
 
         <tfoot>
         <tr>
-            <th colspan="9">1 Publications</th>
+            <th class="cell_header" colspan="9">${requestScope.userProductNumber} Publications</th>
         </tr>
         </tfoot>
 
         <tbody>
 
+
         <c:forEach var="userProduct" items="${requestScope.userProductList}">
-        <tr class="cell_separator">
+
+            <form autocomplete="off" method="post">
+
+            <tr class="cell_separator">
 
             <c:if test="${userProduct.biddingByProduct.biddingStatus.statusTitle.equals(sessionScope.relevantStatus)}">
             <td class="cell">${userProduct.productTitle}</td>
             <td class="cell">${userProduct.description}</td>
             <td class="cell">${userProduct.biddingByProduct.startingPrice} $</td>
             <td class="cell">${userProduct.biddingByProduct.offerEndDate}</td>
-            <td class="cell_text_align">${userProduct.biddingByProduct.biddingStatus.statusTitle}</td>
+            <td class="cell cell_text_align">${userProduct.biddingByProduct.biddingStatus.statusTitle}</td>
             <td class="new_offer_cell">
 
-                <form action="#" autocomplete="off" enctype="text/plain" method="post">
-
-                    <a class="edit_link" href="">Edit</a>
-
-                </form>
+                <input type="hidden" name="hiddenUserProductID" value="${userProduct.productId}">
+                <button class="edit_link" type="submit">Edit</button>
 
             </td>
             </c:if>
@@ -107,21 +113,21 @@
                 <td class="sold_cell">${userProduct.description}</td>
                 <td class="sold_cell">${userProduct.biddingByProduct.startingPrice} $</td>
                 <td class="sold_cell">${userProduct.biddingByProduct.offerEndDate}</td>
-                <td class="sold_cell_text_align">${userProduct.biddingByProduct.biddingStatus.statusTitle}</td>
+                <td class="sold_cell cell_text_align">${userProduct.biddingByProduct.biddingStatus.statusTitle}</td>
                 <td class="new_offer_cell">
 
-                    <form action="#" autocomplete="off" enctype="text/plain" method="post">
-
-                        <a class="edit_link" href="">Edit</a>
-
-                    </form>
+                <input type="hidden" name="hiddenUserProductID" value="${userProduct.productId}">
+                <button class="edit_link" type="submit">Edit</button>
 
                 </td>
             </c:if>
 
         </tr>
 
+        </form>
+
         </c:forEach>
+
 
         </tbody>
 

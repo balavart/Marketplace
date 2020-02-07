@@ -40,10 +40,16 @@
     <servlet-name>LogoutServlet</servlet-name>
     <servlet-class>com.epam.balaian.hibernate.servlets.LogoutServlet</servlet-class>
   </servlet>
-<!--  <servlet>-->
-<!--    <servlet-name>UserAddingServlet</servlet-name>-->
-<!--    <servlet-class>com.epam.balaian.hibernate.servlets.UserAddingServlet</servlet-class>-->
-<!--  </servlet>-->
+
+  <servlet>
+    <servlet-name>ProductEditingPageServlet</servlet-name>
+    <servlet-class>com.epam.balaian.hibernate.servlets.ProductEditingPageServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>ProductAddingPageServlet</servlet-name>
+    <servlet-class>com.epam.balaian.hibernate.servlets.ProductAddingPageServlet</servlet-class>
+  </servlet>
 
  <servlet-mapping>
    <servlet-name>HomepageServlet</servlet-name>
@@ -80,6 +86,16 @@
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>ProductEditingPageServlet</servlet-name>
+    <url-pattern>/product_editing</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ProductAddingPageServlet</servlet-name>
+    <url-pattern>/product_adding</url-pattern>
+  </servlet-mapping>
+
   <filter>
     <filter-name>AuthenticationFilter</filter-name>
     <filter-class>com.epam.balaian.hibernate.servlets.AuthenticationFilter</filter-class>
@@ -89,6 +105,8 @@
     <filter-name>AuthenticationFilter</filter-name>
     <url-pattern>/product_table</url-pattern>
     <url-pattern>/my_products</url-pattern>
+    <url-pattern>/product_editing</url-pattern>
+    <url-pattern>/product_adding</url-pattern>
   </filter-mapping>
 
   <welcome-file-list>

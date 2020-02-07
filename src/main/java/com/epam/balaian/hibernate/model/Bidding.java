@@ -47,6 +47,12 @@ public class Bidding {
     this.biddingId = biddingId;
   }
 
+  public Bidding(Double startingPrice, Date offerEndDate, StatusType status) {
+    this.startingPrice = startingPrice;
+    this.offerEndDate = offerEndDate;
+    this.biddingStatus = status;
+  }
+
   public Bidding(
       Double startingPrice,
       Date offerEndDate,

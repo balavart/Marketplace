@@ -50,6 +50,18 @@
             </th>
         </tr>
 
+
+        <tr>
+            <th colspan="9">
+                <c:if test="${sessionScope.errorExists}">
+                        <span class="error_form">
+                                ${sessionScope.errorMessage}
+                        </span>
+                </c:if>
+            </th>
+        </tr>
+
+
         <tr>
 
             <th class="cell_header" width="2%">
@@ -60,7 +72,7 @@
                 Sale
             </th>
 
-            <th class="cell_header" width="32%">
+            <th class="cell_header" width="30%">
                 Description
             </th>
 
@@ -68,7 +80,7 @@
                 Salesman
             </th>
 
-            <th class="cell_header" width="6%">
+            <th class="cell_header" width="8%">
                 Starting price
             </th>
 
@@ -76,7 +88,7 @@
                 Offer end date
             </th>
 
-            <th class="cell_header" width="6%">
+            <th class="cell_header" width="8%">
                 Best offer
             </th>
 
@@ -114,8 +126,7 @@
                 <td class="cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
                     <td>
 
-                        <form action="#" autocomplete="off" enctype="text/plain" method="post"
-                              name="offer_form">
+                        <form autocomplete="off" method="post" name="offer_form">
 
                             <input class="offer_input" id="offer" maxlength="7" minlength="1"
                                    name="offer"
@@ -123,11 +134,15 @@
                                    required
                                    title="Enter the amount in the format: 999(.99)"
                                    type="text"/>
+
+                            <input type="hidden" name="hiddenItemID" value="${product.productId}">
+
                             <button class="offer_button" type="submit" id="dataSendButton">Bid</button>
 
                         </form>
 
                     </td>
+
                 </c:if>
 
                 <c:if test="${product.biddingByProduct.biddingStatus.statusTitle.equals(sessionScope.soldStatus)}">
@@ -139,10 +154,11 @@
                     <td class="sold_cell">${product.biddingByProduct.offerEndDate}</td>
                     <td class="sold_cell">${product.biddingByProduct.bestOffer} $</td>
                     <td class="sold_cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
-                    <td class="sold_cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
+                    <td class="sold_cell cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
                 </c:if>
 
             </tr>
+
         </c:forEach>
 
         </tbody>

@@ -33,7 +33,7 @@ body {
   margin: 5px 40%;
 }
 
-.logout_form{
+.logout_form {
   position: relative;
   border: black 2px solid;
   width: 19%;
@@ -120,6 +120,8 @@ body {
   border-left: black 1px solid;
   border-right: black 1px solid;
   letter-spacing: 2px;
+  display: block;
+  margin-top: 6%;
 }
 
 .guest_link {
@@ -189,7 +191,7 @@ body {
 .offer_input {
   background-color: burlywood;
   border-radius: 20px;
-  font-size: 1.3vw;
+  font-size: 1.1vw;
   font-family: "Constantia", sans-serif;
   border: whitesmoke 1px solid;
   width: 100%;
@@ -291,17 +293,10 @@ table {
 }
 
 .cell_text_align {
-  padding: 10px;
-  background-color: #D2B48C;
-  border-radius: 50px;
-  font-size: 1.1vw;
-  font-family: "Constantia", sans-serif;
-  max-width: 50px;
-  word-wrap: break-word;
   text-align: center;
 }
 
-.sold_cell{
+.sold_cell {
   padding: 10px;
   background-color: darkgoldenrod;
   border-radius: 50px;
@@ -309,20 +304,11 @@ table {
   font-family: "Constantia", sans-serif;
   max-width: 50px;
   word-wrap: break-word;
-}
-
-.sold_cell_text_align{
-  padding: 10px;
-  background-color: darkgoldenrod;
-  border-radius: 50px;
-  font-size: 1.1vw;
-  font-family: "Constantia", sans-serif;
-  max-width: 50px;
-  word-wrap: break-word;
-  text-align: center;
 }
 
 .new_offer_cell {
+  text-align: center;
+  vertical-align: initial;
   border-radius: 50px;
   font-family: "Bernard MT Condensed", cursive;
 }
@@ -369,17 +355,18 @@ textarea.valid {
   font-family: "Constantia", sans-serif;
 }
 
-.cell_separator{
+.cell_separator {
   border-bottom: peru 2px solid;
 }
 
-.error_form{
+.error_form {
   color: red;
   font-size: 25px;
-  font-family: Constantia,fantasy;
+  font-family: Constantia, fantasy;
   font-weight: 900;
   background-color: burlywood;
   border-radius: 10px;
 }
 
-.inputValidation{}
+.inputValidation {
+}

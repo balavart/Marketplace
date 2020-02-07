@@ -3,6 +3,7 @@ package com.epam.balaian.hibernate.dao.impl;
 import com.epam.balaian.hibernate.dao.BiddingDAO;
 import com.epam.balaian.hibernate.model.Bidding;
 import com.epam.balaian.hibernate.model.StatusType;
+import com.epam.balaian.hibernate.model.User;
 import com.epam.balaian.hibernate.services.SessionTerminal;
 import java.sql.Date;
 import java.util.List;
@@ -38,6 +39,22 @@ public class BiddingDAOImpl implements BiddingDAO {
   }
 
   @Override
+  public Bidding editBiddingBestOfferAndBidder(User supposedBidder, Double bestOffer,
+      long biddingId) {
+    SessionTerminal.openSessionAndTransaction();
+
+    try{
+      Bidding biddingToUpdate =
+          SessionTerminal.FACTORY.getCurrentSession().get(Bidding.class, biddingId);
+      biddingToUpdate.setBestOffer(bestOffer);
+      biddingToUpdate.setUserAsSupposedBidder(supposedBidder);
+      return biddingToUpdate;
+    }finally{
+      SessionTerminal.closeSessionAndTransaction();
+    }
+  }
+
+  @Override
   public Bidding editBidding(
       Double startingPrice, Date offerEndDate, StatusType status, long biddingId) {
     SessionTerminal.openSessionAndTransaction();
@@ -48,6 +65,23 @@ public class BiddingDAOImpl implements BiddingDAO {
       biddingToUpdate.setStartingPrice(startingPrice);
       biddingToUpdate.setOfferEndDate(offerEndDate);
       biddingToUpdate.setBiddingStatus(status);
+      SessionTerminal.FACTORY.getCurrentSession().update(biddingToUpdate);
+      return biddingToUpdate;
+    } finally {
+      SessionTerminal.closeSessionAndTransaction();
+    }
+  }
+
+  @Override
+  public Bidding editBiddingStartingPriceAndOfferEndDate(
+      Double startingPrice, Date offerEndDate, long biddingId) {
+    SessionTerminal.openSessionAndTransaction();
+
+    try {
+      Bidding biddingToUpdate =
+          SessionTerminal.FACTORY.getCurrentSession().get(Bidding.class, biddingId);
+      biddingToUpdate.setStartingPrice(startingPrice);
+      biddingToUpdate.setOfferEndDate(offerEndDate);
       SessionTerminal.FACTORY.getCurrentSession().update(biddingToUpdate);
       return biddingToUpdate;
     } finally {

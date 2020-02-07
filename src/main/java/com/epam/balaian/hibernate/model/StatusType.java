@@ -34,6 +34,10 @@ public class StatusType {
     this.statusId = statusId;
   }
 
+  public StatusType(String statusTitle) {
+    this.statusTitle = statusTitle;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "status_id", nullable = false)

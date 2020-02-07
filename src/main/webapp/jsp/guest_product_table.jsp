@@ -107,7 +107,7 @@
                     <td class="cell">${product.biddingByProduct.offerEndDate}</td>
                     <td class="cell">${product.biddingByProduct.bestOffer} $</td>
                     <td class="cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
-                    <td class="cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
+                    <td class="cell cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
                 </c:if>
 
                 <c:if test="${product.biddingByProduct.biddingStatus.statusTitle.equals(requestScope.soldStatus)}">
@@ -119,7 +119,7 @@
                 <td class="sold_cell" >${product.biddingByProduct.offerEndDate}</td>
                 <td class="sold_cell" >${product.biddingByProduct.bestOffer} $</td>
                 <td class="sold_cell" >${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
-                <td class="sold_cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
+                <td class="sold_cell cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
                 </c:if>
 
             </tr>

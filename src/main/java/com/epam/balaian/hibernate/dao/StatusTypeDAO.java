@@ -1,5 +1,6 @@
 package com.epam.balaian.hibernate.dao;
 
+import com.epam.balaian.hibernate.model.Product;
 import com.epam.balaian.hibernate.model.StatusType;
 
 /**
@@ -9,5 +10,9 @@ import com.epam.balaian.hibernate.model.StatusType;
  */
 public interface StatusTypeDAO {
 
+  StatusType addStatus(StatusType status);
+
   StatusType getStatusById(int statusId);
+
+  StatusType getStatusByTitle (String statusTitle);
 }
