@@ -2,6 +2,7 @@ package com.epam.balaian.hibernate.dao;
 
 import com.epam.balaian.hibernate.model.Bidding;
 import com.epam.balaian.hibernate.model.StatusType;
+import com.epam.balaian.hibernate.model.User;
 import java.sql.Date;
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface BiddingDAO {
   Bidding getBiddingById(long biddingId);
 
   Bidding editBidding(Double startingPrice, Date offerEndDate, StatusType status, long biddingId);
+
+  void editBiddingBestOfferAndBidder(
+      User supposedBidder, Double bestOffer, long biddingId); // todo: add test
 
   Bidding deleteBidding(long biddingId);
 

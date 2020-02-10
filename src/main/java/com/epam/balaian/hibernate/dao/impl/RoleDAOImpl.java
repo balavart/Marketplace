@@ -15,9 +15,9 @@ public class RoleDAOImpl implements RoleDAO {
   public Role getRoleById(int roleId) {
     SessionTerminal.openSessionAndTransaction();
 
-    try{
+    try {
       return SessionTerminal.FACTORY.getCurrentSession().get(Role.class, roleId);
-    }finally{
+    } finally {
       SessionTerminal.closeSessionAndTransaction();
     }
   }

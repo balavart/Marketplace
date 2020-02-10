@@ -15,9 +15,24 @@ public class StatusTypeDAOImpl implements StatusTypeDAO {
   public StatusType getStatusById(int statusId) {
     SessionTerminal.openSessionAndTransaction();
 
-    try{
+    try {
       return SessionTerminal.FACTORY.getCurrentSession().get(StatusType.class, statusId);
-    }finally{
+    } finally {
+      SessionTerminal.closeSessionAndTransaction();
+    }
+  }
+
+  @Override
+  public StatusType getStatusByTitle(String statusTitle) {
+    SessionTerminal.openSessionAndTransaction();
+
+    try {
+      return SessionTerminal.FACTORY
+          .getCurrentSession()
+          .createQuery("from StatusType where statusTitle =:status_title_param", StatusType.class)
+          .setParameter("status_title_param", statusTitle)
+          .uniqueResult();
+    } finally {
       SessionTerminal.closeSessionAndTransaction();
     }
   }

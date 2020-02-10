@@ -10,4 +10,6 @@ import com.epam.balaian.hibernate.model.StatusType;
 public interface StatusTypeDAO {
 
   StatusType getStatusById(int statusId);
+
+  StatusType getStatusByTitle(String statusTitle); // todo: add test
 }

@@ -83,7 +83,7 @@ public class ProductDAOImpl implements ProductDAO {
     try {
       return SessionTerminal.FACTORY
           .getCurrentSession()
-          .createQuery("from Product where productId = " + idOwner)
+          .createQuery("from Product where productOwner.userId = " + idOwner)
           .list();
     } finally {
       SessionTerminal.closeSessionAndTransaction();

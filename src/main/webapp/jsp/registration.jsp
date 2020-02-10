@@ -1,0 +1,277 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Vardan Balaian
+  Date: 1/31/2020
+  Time: 4:32 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<html lang="en">
+<head>
+    <title>Marketplace Registration</title>
+    <meta charset="UTF-8">
+    <meta content="The site was developed by student Balaian Vardan" name="description">
+    <meta content="en" http-equiv="content-language">
+    <meta content="Vardan Balaian" name="author">
+    <meta content="copyright held by Balaian Vardan" name="copyright">
+
+    <link href="css/element_styles.css" rel="stylesheet">
+    <link href="css/text_styles.css" rel="stylesheet">
+    <link href="css/hover_styles.css" rel="stylesheet">
+    <link href="css/modal_style.css" rel="stylesheet">
+
+    <script src="js/registration_form_validation.js" type="text/javascript"></script>
+    <script src="js/elements_change.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<h1 class="site_name_decor">Online MarketPlace</h1>
+
+<c:if test="${sessionScope.loggedUser==null && sessionScope.guestMod==null}">
+    <a class="navigation_link" href="product_table">Auction table</a>
+</c:if>
+
+<c:if test="${sessionScope.loggedUser!=null}">
+    <a class="navigation_link" href="product_table">Auction table</a>
+</c:if>
+
+<c:if test="${sessionScope.guestMod}">
+    <a class="navigation_link" href="guest_product_table">Auction table</a>
+</c:if>
+
+<a class="navigation_link" href="homepage">Homepage</a>
+<a class="navigation_link" href="login">Log in</a>
+
+<div class="content">
+
+    <c:if test="${sessionScope.loggedUser!=null}">
+        <div class="logout_form">
+            <span class="user_name_display">${sessionScope.loginName}</span>
+            <a class="logout_link" href="logout">log out</a>
+        </div>
+    </c:if>
+
+    <c:if test="${sessionScope.guestMod}">
+        <div class="logout_form">
+            <span class="user_name_display">Guest</span>
+            <a class="logout_link" href="logout">log out</a>
+        </div>
+    </c:if>
+
+    <form name="register_form" autocomplete="on" method="post">
+
+        <fieldset>
+
+            <legend class="legend_text">
+                Registration form
+            </legend>
+
+                <div class="login_panel">
+
+                    <p>
+                        <label class="label_input" for="login">
+                            Login:
+                            <input class="user_data_input" id="login" maxlength="20" minlength="4"
+                                   name="login" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$"
+                                   placeholder="Create a username" required title="Use 4-20 Latin characters. Only letters, numbers, hyphens and underscores are allowed. The first character must be a letter."
+                                   type="text"
+                            />
+                        </label>
+                    </p>
+
+                    <p>
+                        <br>
+                        <label class="label_input" for="password">
+                            Password:
+                            <input class="user_data_input" id="password" maxlength="20"
+                                   minlength="6" name="password" pattern="^[a-zA-Z0-9_-]{6,20}$"
+                                   placeholder="Create a password" required
+                                   title="Use 6-20 Latin characters. Only letters, numbers, hyphens and underscores are allowed."
+                                   type="password"
+                            />
+                        </label>
+                    </p>
+
+                    <p>
+                        <br>
+                        <label class="label_input" for="password_replay">
+                            Confirm password:
+                            <input class="user_data_input" id="password_replay" maxlength="12"
+                                   minlength="6" name="password_replay" pattern="^[a-zA-Z0-9_-]{6,20}$"
+                                   placeholder="Re-enter Password" required
+                                   title="Use 6-20 Latin characters. Only letters, numbers, hyphens and underscores are allowed."
+                                   type="password"
+                            />
+                        </label>
+                    </p>
+
+                    <p>
+                        <br>
+                        <label class="label_input" for="fullName">
+                            Full name:
+                            <input class="user_data_input" id="fullName" maxlength="40" minlength="2"
+                                   name="fullName"
+                                   pattern="^[A-Z][a-zA-Z\-]{1,20}\s[A-Z][a-zA-Z\-]{1,20}(\s[A-Z][a-zA-Z\-]{1,20})?$"
+                                   placeholder="Enter Full name" required title="Use 2-40 Latin characters. Only letters and hyphens are allowed. The first letter of each word is uppercase."
+                                   type="text"
+                            />
+                        </label>
+                    </p>
+
+                    <p>
+                        <br>
+                        <label class="label_input" for="city">
+                            City:
+                            <input class="user_data_input" id="city" list="cities" maxlength="30"
+                                   minlength="2" name="city" pattern="^[a-zA-Z]+(?:[- `][a-zA-Z]+)*$"
+                                   placeholder="Enter city" required title="Use 2-30 Latin characters. Only letters and hyphens are allowed."
+                                   type="text"
+                            />
+                            <datalist id="cities">
+                                <option value="Salekhard"/>
+                                <option value="Samara"/>
+                                <option value="Saint Petersburg"/>
+                                <option value="Saransk"/>
+                                <option value="Smolensk"/>
+                                <option value="Sochi"/>
+                                <option value="Stavropol"/>
+                                <option value="Syktyvkar"/>
+                                <option value="Arkhangelsk"/>
+                                <option value="Astrakhan"/>
+                                <option value="Belgorod"/>
+                                <option value="Bryansk"/>
+                                <option value="Vladimir"/>
+                                <option value="Volgograd"/>
+                                <option value="Voronezh"/>
+                                <option value="Ivanovo"/>
+                                <option value="Izhevsk"/>
+                                <option value="Irkutsk"/>
+                                <option value="Kazan"/>
+                                <option value="Kaliningrad"/>
+                                <option value="Kaluga"/>
+                                <option value="Kemerovo"/>
+                                <option value="Kislovodsk"/>
+                                <option value="Krasnodar"/>
+                                <option value="Krasnoyarsk"/>
+                                <option value="Kursk"/>
+                                <option value="Lipetsk"/>
+                                <option value="Magadan"/>
+                                <option value="Maykop"/>
+                                <option value="Moscow"/>
+                                <option value="Murmansk"/>
+                                <option value="Nizhnevartovsk"/>
+                                <option value="Nizhny Novgorod"/>
+                                <option value="Novosibirsk"/>
+                                <option value="Novye Burasy"/>
+                                <option value="Omsk"/>
+                                <option value="Orenburg"/>
+                                <option value="Oryol"/>
+                                <option value="Penza"/>
+                                <option value="Perm"/>
+                                <option value="Petrozavodsk"/>
+                                <option value="Petropavlovsk-Kamchatsky"/>
+                                <option value="Podolsk"/>
+                                <option value="Pskov"/>
+                                <option value="Pyatigorsk"/>
+                                <option value="Rostov-on-Don"/>
+                                <option value="Ryazan"/>
+                                <option value="Tver"/>
+                                <option value="Tobolsk"/>
+                                <option value="Tyumen"/>
+                                <option value="Ulyanovsk"/>
+                                <option value="Ufa"/>
+                                <option value="Khabarovsk"/>
+                                <option value="Chelyabinsk"/>
+                                <option value="Cheboksary"/>
+                                <option value="Engels"/>
+                                <option value="Yakutsk"/>
+                                <option value="Yaroslavl"/>
+                            </datalist>
+                        </label>
+                    </p>
+
+                    <p>
+                        <br>
+                        <label class="label_input" for="email">
+                            Email:
+                            <input class="user_data_input" id="email" name="email" minlength="2" maxlength="40"
+                                   pattern="^[_a-zA-Z0-9-\+-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,20})$"
+                                   placeholder="Enter email"
+                                   required title="someone@example.com"
+                                   type="email"
+                            />
+
+                        </label>
+                    </p>
+
+                    <p>
+                        <br>
+                        <label class="label_input" for="phone">
+                            Phone number:
+                            <input class="user_data_input" id="phone" maxlength="12" name="phone"
+                                   pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$"
+                                   placeholder="Enter phone number"
+                                   required title="+7(XXX) XXX XXXX"
+                                   type="tel"
+                            />
+                        </label>
+                    </p>
+                    <br>
+
+                    <span class="error_form">
+                        ${requestScope.errorMessage}
+                    </span>
+
+                    <hr>
+
+
+                    <p>
+                        <button class="registration-button" type="submit" id="dataSendButton">To register</button>
+                        <button class="registration-button" type="reset">Reset forms</button>
+                    </p>
+
+                </div>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+<footer class="footer"><p class="footer_text">Developed by student Balaian Vardan Ⓢ 2020</p>
+</footer>
+
+<!-- The Modal -->
+<div class="modal" id="wrongFillingModal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="wrongMessage">There are errors in filling out the form.</p>
+
+
+        <div class="modal-footer">
+            <button class="registration-button" id="exitButton" type="button">Exit</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="warningModal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="warningMessage">"By creating a profile, you consent to the processing of personal data."</p>
+
+        <div class="modal-footer">
+            <button class="registration-button" id="confirmButton" type="button">OK</button>
+            <button class="registration-button" id="negativeButton" type="button">Cancel</button>
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

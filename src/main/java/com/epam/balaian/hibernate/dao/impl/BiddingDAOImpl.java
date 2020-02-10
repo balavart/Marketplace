@@ -3,6 +3,7 @@ package com.epam.balaian.hibernate.dao.impl;
 import com.epam.balaian.hibernate.dao.BiddingDAO;
 import com.epam.balaian.hibernate.model.Bidding;
 import com.epam.balaian.hibernate.model.StatusType;
+import com.epam.balaian.hibernate.model.User;
 import com.epam.balaian.hibernate.services.SessionTerminal;
 import java.sql.Date;
 import java.util.List;
@@ -32,6 +33,20 @@ public class BiddingDAOImpl implements BiddingDAO {
 
     try {
       return SessionTerminal.FACTORY.getCurrentSession().get(Bidding.class, biddingId);
+    } finally {
+      SessionTerminal.closeSessionAndTransaction();
+    }
+  }
+
+  @Override
+  public void editBiddingBestOfferAndBidder(User supposedBidder, Double bestOffer, long biddingId) {
+    SessionTerminal.openSessionAndTransaction();
+
+    try {
+      Bidding biddingToUpdate =
+          SessionTerminal.FACTORY.getCurrentSession().get(Bidding.class, biddingId);
+      biddingToUpdate.setBestOffer(bestOffer);
+      biddingToUpdate.setUserAsSupposedBidder(supposedBidder);
     } finally {
       SessionTerminal.closeSessionAndTransaction();
     }
@@ -88,7 +103,7 @@ public class BiddingDAOImpl implements BiddingDAO {
     try {
       return SessionTerminal.FACTORY
           .getCurrentSession()
-          .createQuery("from Bidding where biddingId = " + idSupposedBidder)
+          .createQuery("from Bidding where userAsSupposedBidder.userId = " + idSupposedBidder)
           .list();
     } finally {
       SessionTerminal.openSessionAndTransaction();
