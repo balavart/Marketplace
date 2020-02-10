@@ -1,7 +1,5 @@
 package com.epam.balaian.hibernate.servlets;
 
-import static javafx.scene.input.KeyCode.L;
-
 import com.epam.balaian.hibernate.dao.BiddingDAO;
 import com.epam.balaian.hibernate.dao.ProductDAO;
 import com.epam.balaian.hibernate.dao.impl.BiddingDAOImpl;
@@ -24,12 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ProductTablePageServlet extends HttpServlet {
   ProductDAO productDAO = new ProductDAOImpl();
-
-  @Override
-  public void service(ServletRequest req, ServletResponse res)
-      throws ServletException, IOException {
-    super.service(req, res);
-  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -60,18 +52,30 @@ public class ProductTablePageServlet extends HttpServlet {
 
     User supposedBidder = (User) req.getSession().getAttribute("loggedUser");
     Product existingProduct = productDAO.getByProductId(productID);
+
+    Long supposedBidderID = supposedBidder.getUserId();
+    Long productOwnerID = existingProduct.getProductOwner().getUserId();
+
     Long biddingID = existingProduct.getBiddingByProduct().getBiddingId();
     Double existingOffer = existingProduct.getBiddingByProduct().getBestOffer();
 
     if (enteredOffer <= existingOffer) {
-      req.getSession().setAttribute("errorExists",true);
-      String errorMessage =
+      req.getSession().removeAttribute("ownerOfferErrorExists");
+      req.getSession().setAttribute("priceErrorExists", true);
+      String priceErrorMessage =
           "The indicated price offer cannot be less than or equal to the existing offer.";
-      req.getSession().setAttribute("errorMessage", errorMessage);
+      req.getSession().setAttribute("priceErrorMessage", priceErrorMessage);
+    } else if (supposedBidderID.equals(productOwnerID)) {
+      req.getSession().removeAttribute("priceErrorExists");
+      req.getSession().setAttribute("ownerOfferErrorExists", true);
+      String ownerOfferErrorMessage = "You cannot bid in your own auction.";
+      req.getSession().setAttribute("ownerOfferErrorMessage", ownerOfferErrorMessage);
     } else {
-      req.getSession().removeAttribute("errorExists");
-      req.getSession().removeAttribute("errorMessage");
-      biddingDAO.editBiddingBestOfferAndBidder(supposedBidder,enteredOffer,biddingID);
+      req.getSession().removeAttribute("priceErrorExists");
+      req.getSession().removeAttribute("priceErrorMessage");
+      req.getSession().removeAttribute("ownerOfferErrorExists");
+      req.getSession().removeAttribute("ownerOfferErrorMessage");
+      biddingDAO.editBiddingBestOfferAndBidder(supposedBidder, enteredOffer, biddingID);
     }
     resp.sendRedirect("product_table");
   }

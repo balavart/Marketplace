@@ -19,9 +19,8 @@ public interface BiddingDAO {
 
   Bidding editBidding(Double startingPrice, Date offerEndDate, StatusType status, long biddingId);
 
-  Bidding editBiddingStartingPriceAndOfferEndDate(Double startingPrice, Date offerEndDate, long biddingId);
-
-  Bidding editBiddingBestOfferAndBidder(User supposedBidder, Double bestOffer, long biddingId);
+  void editBiddingBestOfferAndBidder(
+      User supposedBidder, Double bestOffer, long biddingId); // todo: add test
 
   Bidding deleteBidding(long biddingId);
 

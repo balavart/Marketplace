@@ -45,22 +45,22 @@
     <servlet-name>ProductEditingPageServlet</servlet-name>
     <servlet-class>com.epam.balaian.hibernate.servlets.ProductEditingPageServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <servlet-name>ProductAddingPageServlet</servlet-name>
     <servlet-class>com.epam.balaian.hibernate.servlets.ProductAddingPageServlet</servlet-class>
   </servlet>
 
- <servlet-mapping>
-   <servlet-name>HomepageServlet</servlet-name>
-   <url-pattern>/homepage</url-pattern>
- </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HomepageServlet</servlet-name>
+    <url-pattern>/homepage</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>LoginPageServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>ProductTablePageServlet</servlet-name>
     <url-pattern>/product_table</url-pattern>
@@ -90,7 +90,7 @@
     <servlet-name>ProductEditingPageServlet</servlet-name>
     <url-pattern>/product_editing</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>ProductAddingPageServlet</servlet-name>
     <url-pattern>/product_adding</url-pattern>

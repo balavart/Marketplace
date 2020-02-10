@@ -11,7 +11,6 @@ import com.epam.balaian.hibernate.model.Product;
 import com.epam.balaian.hibernate.model.StatusType;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,27 +22,25 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.8
  */
 public class ProductEditingPageServlet extends HttpServlet {
+  ProductDAO productDAO = new ProductDAOImpl();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-      ProductDAO productDAO = new ProductDAOImpl();
 
-      long userProductID = (long) req.getSession().getAttribute("userProductID");
-      Product existingUserProduct = productDAO.getByProductId(userProductID);
-      Bidding existingUserBidding = existingUserProduct.getBiddingByProduct();
+    long userProductID = (long) req.getSession().getAttribute("userProductID");
+    Product existingUserProduct = productDAO.getByProductId(userProductID);
+    Bidding existingUserBidding = existingUserProduct.getBiddingByProduct();
 
-      req.getSession().setAttribute("existingUserProduct", existingUserProduct);
-      req.getSession().setAttribute("existingUserBidding", existingUserBidding);
+    req.getSession().setAttribute("existingUserProduct", existingUserProduct);
+    req.getSession().setAttribute("existingUserBidding", existingUserBidding);
 
-      req.getServletContext().getRequestDispatcher("/jsp/product_editing.jsp").forward(req, resp);
-
+    req.getServletContext().getRequestDispatcher("/jsp/product_editing.jsp").forward(req, resp);
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    ProductDAO productDAO = new ProductDAOImpl();
     BiddingDAO biddingDAO = new BiddingDAOImpl();
     StatusTypeDAO statusTypeDAO = new StatusTypeDAOImpl();
 

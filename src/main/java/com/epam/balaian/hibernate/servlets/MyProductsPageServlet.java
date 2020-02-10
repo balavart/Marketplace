@@ -1,10 +1,7 @@
 package com.epam.balaian.hibernate.servlets;
 
-import com.epam.balaian.hibernate.dao.BiddingDAO;
 import com.epam.balaian.hibernate.dao.ProductDAO;
-import com.epam.balaian.hibernate.dao.impl.BiddingDAOImpl;
 import com.epam.balaian.hibernate.dao.impl.ProductDAOImpl;
-import com.epam.balaian.hibernate.model.Bidding;
 import com.epam.balaian.hibernate.model.Product;
 import com.epam.balaian.hibernate.model.User;
 import java.io.IOException;
@@ -32,6 +29,10 @@ public class MyProductsPageServlet extends HttpServlet {
     List<Product> userProductList = productDAO.getAllProductsByIdOwner(loggedUserID);
     int userProductNumber = userProductList.size();
 
+    req.getSession().removeAttribute("priceErrorExists");
+    req.getSession().removeAttribute("priceErrorMessage");
+    req.getSession().removeAttribute("ownerOfferErrorExists");
+    req.getSession().removeAttribute("ownerOfferErrorMessage");
     req.setAttribute("userProductList", userProductList);
     req.setAttribute("userProductNumber", userProductNumber);
 
@@ -41,14 +42,22 @@ public class MyProductsPageServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    ProductDAO productDAO = new ProductDAOImpl();
 
-    if (Objects.nonNull(req.getParameter("hiddenUserProductID"))) {
+
+    if (Objects.nonNull(req.getParameter("editMod"))) {
       long userProductID = Long.parseLong(req.getParameter("hiddenUserProductID"));
+
       req.getSession().setAttribute("userProductID", userProductID);
+
       resp.sendRedirect("product_editing");
-    }else if (Objects.nonNull(req.getParameter("hiddenDeleteProduct"))){
-      //123
-    }else if (Objects.nonNull(req.getParameter("hiddenProductAdding"))){
+    } else if (Objects.nonNull(req.getParameter("deleteMod"))) {
+      long userProductID = Long.parseLong(req.getParameter("hiddenUserProductID"));
+
+      productDAO.deleteProduct(userProductID);
+
+      resp.sendRedirect("my_products");
+    } else if (Objects.nonNull(req.getParameter("addingMod"))) {
       resp.sendRedirect("product_adding");
     }
   }

@@ -53,51 +53,59 @@
 
         <tr>
             <th colspan="9">
-                <c:if test="${sessionScope.errorExists}">
+
+                <c:if test="${sessionScope.priceErrorExists}">
                         <span class="error_form">
-                                ${sessionScope.errorMessage}
+                                ${sessionScope.priceErrorMessage}
                         </span>
                 </c:if>
+
+                <c:if test="${sessionScope.ownerOfferErrorExists}">
+                    <span class="error_form">
+                        ${sessionScope.ownerOfferErrorMessage}
+                    </span>
+                </c:if>
+
             </th>
         </tr>
 
 
         <tr>
 
-            <th class="cell_header" width="2%">
+            <th class="cell_header" style="width: 1%">
                 ID
             </th>
 
-            <th class="cell_header" width="13%">
+            <th class="cell_header" style="width: 13%">
                 Sale
             </th>
 
-            <th class="cell_header" width="30%">
+            <th class="cell_header" style="width: 30%">
                 Description
             </th>
 
-            <th class="cell_header" width="12%">
+            <th class="cell_header" style="width: 12%">
                 Salesman
             </th>
 
-            <th class="cell_header" width="8%">
+            <th class="cell_header" style="width: 8%">
                 Starting price
             </th>
 
-            <th class="cell_header" width="7%">
+            <th class="cell_header" style="width: 7%">
                 Offer end date
             </th>
 
-            <th class="cell_header" width="8%">
+            <th class="cell_header" style="width: 8%">
                 Best offer
             </th>
 
-            <th class="cell_header" width="12%">
+            <th class="cell_header" style="width: 12%">
                 Bidder
             </th>
 
 
-            <th class="cell_header" width="10%">
+            <th class="cell_header" style="width: 12%">
                 My offer
             </th>
 
@@ -116,28 +124,35 @@
             <tr class="cell_separator">
 
                 <c:if test="${product.biddingByProduct.biddingStatus.statusTitle.equals(sessionScope.relevantStatus)}">
-                <td class="cell">${product.productId} </td>
+                <td class="cell_header">${product.productId} </td>
                 <td class="cell">${product.productTitle}</td>
                 <td class="cell">${product.description}</td>
                 <td class="cell">${product.productOwner.loginName}</td>
                 <td class="cell">${product.biddingByProduct.startingPrice} $</td>
                 <td class="cell">${product.biddingByProduct.offerEndDate}</td>
-                <td class="cell">${product.biddingByProduct.bestOffer} $</td>
-                <td class="cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+
+                    <c:if test="${product.productOwner.userId==product.biddingByProduct.userAsSupposedBidder.userId}">
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </c:if>
+
+                    <c:if test="${product.productOwner.userId!=product.biddingByProduct.userAsSupposedBidder.userId}">
+                        <td class="cell">${product.biddingByProduct.bestOffer} $</td>
+                        <td class="cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+                    </c:if>
+
                     <td>
 
                         <form autocomplete="off" method="post" name="offer_form">
 
-                            <input class="offer_input" id="offer" maxlength="7" minlength="1"
+                           <input class="offer_input" id="offer" maxlength="7" minlength="1"
                                    name="offer"
-                                   pattern="^\d+(,\d{3})*(\.\d{1,2})?$" placeholder="Offer your price"
+                                   pattern="^\d+(,\d{3})*(\.\d{1,2})?$" placeholder="Offer price"
                                    required
                                    title="Enter the amount in the format: 999(.99)"
-                                   type="text"/>
+                                   type="text"/><span class="cell_header">$</span>
 
-                            <input type="hidden" name="hiddenItemID" value="${product.productId}">
-
-                            <button class="offer_button" type="submit" id="dataSendButton">Bid</button>
+                            <button name="hiddenItemID" value="${product.productId}" class="offer_button" type="submit" id="dataSendButton">Bid</button>
 
                         </form>
 
@@ -146,14 +161,23 @@
                 </c:if>
 
                 <c:if test="${product.biddingByProduct.biddingStatus.statusTitle.equals(sessionScope.soldStatus)}">
-                    <td class="sold_cell">${product.productId} </td>
+                    <td class="cell_header">${product.productId} </td>
                     <td class="sold_cell">${product.productTitle}</td>
                     <td class="sold_cell">${product.description}</td>
                     <td class="sold_cell">${product.productOwner.loginName}</td>
                     <td class="sold_cell">${product.biddingByProduct.startingPrice} $</td>
                     <td class="sold_cell">${product.biddingByProduct.offerEndDate}</td>
-                    <td class="sold_cell">${product.biddingByProduct.bestOffer} $</td>
-                    <td class="sold_cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+
+                    <c:if test="${product.productOwner.userId==product.biddingByProduct.userAsSupposedBidder.userId}">
+                        <td class="sold_cell"></td>
+                        <td class="sold_cell"></td>
+                    </c:if>
+
+                    <c:if test="${product.productOwner.userId!=product.biddingByProduct.userAsSupposedBidder.userId}">
+                        <td class="sold_cell">${product.biddingByProduct.bestOffer} $</td>
+                        <td class="sold_cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+                    </c:if>
+
                     <td class="sold_cell cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
                 </c:if>
 

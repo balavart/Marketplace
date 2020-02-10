@@ -48,39 +48,39 @@
 
         <tr>
 
-            <th class="cell_header" width="2%">
+            <th class="cell_header" style="width: 2%">
                 ID
             </th>
 
-            <th class="cell_header" width="13%">
+            <th class="cell_header" style="width: 13%">
                 Sale
             </th>
 
-            <th class="cell_header" width="32%">
+            <th class="cell_header" style="width: 32%">
                 Description
             </th>
 
-            <th class="cell_header" width="12%">
+            <th class="cell_header" style="width: 12%">
                 Salesman
             </th>
 
-            <th class="cell_header" width="6%">
+            <th class="cell_header" style="width: 6%">
                 Starting price
             </th>
 
-            <th class="cell_header" width="7%">
+            <th class="cell_header" style="width: 7%">
                 Offer end date
             </th>
 
-            <th class="cell_header" width="6%">
+            <th class="cell_header" style="width: 6%">
                 Best offer
             </th>
 
-            <th class="cell_header" width="12%">
+            <th class="cell_header" style="width: 12%">
                 Bidder
             </th>
 
-            <th class="cell_header" width="10%">
+            <th class="cell_header" style="width: 10%">
                 Status
             </th>
 
@@ -105,8 +105,17 @@
                     <td class="cell">${product.productOwner.fullName}</td>
                     <td class="cell">${product.biddingByProduct.startingPrice} $</td>
                     <td class="cell">${product.biddingByProduct.offerEndDate}</td>
-                    <td class="cell">${product.biddingByProduct.bestOffer} $</td>
-                    <td class="cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+
+                    <c:if test="${product.biddingByProduct.userAsSupposedBidder.fullName.equals(product.productOwner.fullName)}">
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </c:if>
+
+                    <c:if test="${product.biddingByProduct.userAsSupposedBidder.fullName.equals(product.productOwner.fullName)==false}">
+                        <td class="cell">${product.biddingByProduct.bestOffer} $</td>
+                        <td class="cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+                    </c:if>
+
                     <td class="cell cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
                 </c:if>
 
@@ -117,8 +126,17 @@
                 <td class="sold_cell" >${product.productOwner.fullName}</td>
                 <td class="sold_cell" >${product.biddingByProduct.startingPrice} $</td>
                 <td class="sold_cell" >${product.biddingByProduct.offerEndDate}</td>
-                <td class="sold_cell" >${product.biddingByProduct.bestOffer} $</td>
-                <td class="sold_cell" >${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+
+                    <c:if test="${product.biddingByProduct.userAsSupposedBidder.fullName.equals(product.productOwner.fullName)}">
+                        <td class="sold_cell"></td>
+                        <td class="sold_cell"></td>
+                    </c:if>
+
+                    <c:if test="${product.biddingByProduct.userAsSupposedBidder.fullName.equals(product.productOwner.fullName)==false}">
+                        <td class="sold_cell">${product.biddingByProduct.bestOffer} $</td>
+                        <td class="sold_cell">${product.biddingByProduct.userAsSupposedBidder.fullName}</td>
+                    </c:if>
+
                 <td class="sold_cell cell_text_align">${product.biddingByProduct.biddingStatus.statusTitle}</td>
                 </c:if>
 

@@ -39,17 +39,15 @@ public class BiddingDAOImpl implements BiddingDAO {
   }
 
   @Override
-  public Bidding editBiddingBestOfferAndBidder(User supposedBidder, Double bestOffer,
-      long biddingId) {
+  public void editBiddingBestOfferAndBidder(User supposedBidder, Double bestOffer, long biddingId) {
     SessionTerminal.openSessionAndTransaction();
 
-    try{
+    try {
       Bidding biddingToUpdate =
           SessionTerminal.FACTORY.getCurrentSession().get(Bidding.class, biddingId);
       biddingToUpdate.setBestOffer(bestOffer);
       biddingToUpdate.setUserAsSupposedBidder(supposedBidder);
-      return biddingToUpdate;
-    }finally{
+    } finally {
       SessionTerminal.closeSessionAndTransaction();
     }
   }
@@ -65,23 +63,6 @@ public class BiddingDAOImpl implements BiddingDAO {
       biddingToUpdate.setStartingPrice(startingPrice);
       biddingToUpdate.setOfferEndDate(offerEndDate);
       biddingToUpdate.setBiddingStatus(status);
-      SessionTerminal.FACTORY.getCurrentSession().update(biddingToUpdate);
-      return biddingToUpdate;
-    } finally {
-      SessionTerminal.closeSessionAndTransaction();
-    }
-  }
-
-  @Override
-  public Bidding editBiddingStartingPriceAndOfferEndDate(
-      Double startingPrice, Date offerEndDate, long biddingId) {
-    SessionTerminal.openSessionAndTransaction();
-
-    try {
-      Bidding biddingToUpdate =
-          SessionTerminal.FACTORY.getCurrentSession().get(Bidding.class, biddingId);
-      biddingToUpdate.setStartingPrice(startingPrice);
-      biddingToUpdate.setOfferEndDate(offerEndDate);
       SessionTerminal.FACTORY.getCurrentSession().update(biddingToUpdate);
       return biddingToUpdate;
     } finally {
@@ -122,7 +103,7 @@ public class BiddingDAOImpl implements BiddingDAO {
     try {
       return SessionTerminal.FACTORY
           .getCurrentSession()
-          .createQuery("from Bidding where biddingId = " + idSupposedBidder)
+          .createQuery("from Bidding where userAsSupposedBidder.userId = " + idSupposedBidder)
           .list();
     } finally {
       SessionTerminal.openSessionAndTransaction();

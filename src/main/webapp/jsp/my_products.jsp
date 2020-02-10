@@ -47,8 +47,7 @@
 
             <th class="new_action_link_position">
                 <form autocomplete="off" method="post">
-                    <input type="hidden" name="hiddenProductAdding"/>
-                <button class="adding_link" type="submit">New auction</button>
+                <button name="addingMod" value="true" class="adding_link" type="submit">New auction</button>
                 </form>
             </th>
 
@@ -56,23 +55,23 @@
 
         <tr>
 
-            <th class="cell_header" width="20%">
+            <th class="cell_header" style="width: 20%">
                 Product
             </th>
 
-            <th class="cell_header" width="39%">
+            <th class="cell_header" style="width: 39%">
                 Description
             </th>
 
-            <th class="cell_header" width="7%">
+            <th class="cell_header" style="width: 7%">
                 Starting price
             </th>
 
-            <th class="cell_header" width="7%">
+            <th class="cell_header" style="width: 7%">
                 Offer end date
             </th>
 
-            <th class="cell_header" width="10%">
+            <th class="cell_header" style="width: 10%">
                 Status
             </th>
 
@@ -103,7 +102,9 @@
             <td class="new_offer_cell">
 
                 <input type="hidden" name="hiddenUserProductID" value="${userProduct.productId}">
-                <button class="edit_link" type="submit">Edit</button>
+
+                <button name="editMod" value="true" class="edit_link" type="submit">Edit</button>
+                <button name="deleteMod" value="true" class="edit_link" type="submit">Delete</button>
 
             </td>
             </c:if>
@@ -116,8 +117,10 @@
                 <td class="sold_cell cell_text_align">${userProduct.biddingByProduct.biddingStatus.statusTitle}</td>
                 <td class="new_offer_cell">
 
-                <input type="hidden" name="hiddenUserProductID" value="${userProduct.productId}">
-                <button class="edit_link" type="submit">Edit</button>
+                    <input type="hidden" name="hiddenUserProductID" value="${userProduct.productId}">
+
+                    <button name="editMod" value="true" class="edit_link" type="submit">Edit</button>
+                    <button name="deleteMod" value="true" class="edit_link" type="submit">Delete</button>
 
                 </td>
             </c:if>

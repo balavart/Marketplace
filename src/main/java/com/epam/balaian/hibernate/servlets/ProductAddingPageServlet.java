@@ -29,6 +29,8 @@ public class ProductAddingPageServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    Date currentDate = new Date(System.currentTimeMillis());
+    req.setAttribute("currentDate", currentDate);
 
     req.getServletContext().getRequestDispatcher("/jsp/product_adding.jsp").forward(req, resp);
   }
@@ -36,7 +38,6 @@ public class ProductAddingPageServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    UserDAO userDAO = new UserDAOImpl();
     ProductDAO productDAO = new ProductDAOImpl();
     BiddingDAO biddingDAO = new BiddingDAOImpl();
     StatusTypeDAO statusTypeDAO = new StatusTypeDAOImpl();
@@ -49,8 +50,9 @@ public class ProductAddingPageServlet extends HttpServlet {
     String status = req.getParameter("status");
 
     StatusType newStatusType = statusTypeDAO.getStatusByTitle(status);
-    Bidding newBidding = biddingDAO.addBidding(new Bidding(newStartingPrice,newEndDate,newStatusType));
-    productDAO.addProduct(new Product(newProductName,newDescription,loggedUser,newBidding));
+    Bidding newBidding =
+        biddingDAO.addBidding(new Bidding(newStartingPrice, newEndDate,newStartingPrice,loggedUser, newStatusType));
+    productDAO.addProduct(new Product(newProductName, newDescription, loggedUser, newBidding));
 
     resp.sendRedirect("my_products");
   }

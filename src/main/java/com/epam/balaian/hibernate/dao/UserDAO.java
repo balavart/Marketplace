@@ -13,9 +13,7 @@ public interface UserDAO {
 
   User getUserById(long userId);
 
-  //todo: test it
-  User getUserByLoginNameAndPassword(String loginName, String password);
+  User getUserByLoginNameAndPassword(String loginName, String password); // todo: test it
 
-  //todo: test it
-  User getUserByLoginName(String loginName);
+  User getUserByLoginName(String loginName); // todo: test it
 }

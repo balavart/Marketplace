@@ -16,6 +16,11 @@ public class HomepageServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    req.getSession().removeAttribute("priceErrorExists");
+    req.getSession().removeAttribute("priceErrorMessage");
+    req.getSession().removeAttribute("ownerOfferErrorExists");
+    req.getSession().removeAttribute("ownerOfferErrorMessage");
+
     req.getServletContext().getRequestDispatcher("/jsp/homepage.jsp").forward(req, resp);
   }
 }

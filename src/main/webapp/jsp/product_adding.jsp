@@ -47,27 +47,27 @@
 
         <tr>
 
-            <th class="cell_header" width="15%">
+            <th class="cell_header" style="width: 15%">
                 Sale
             </th>
 
-            <th class="cell_header" width="35%">
+            <th class="cell_header" style="width: 35%">
                 Description
             </th>
 
-            <th class="cell_header" width="15%">
+            <th class="cell_header" style="width: 15%">
                 Salesman
             </th>
 
-            <th class="cell_header" width=10%">
+            <th class="cell_header" style="width: 10%">
                 Starting price
             </th>
 
-            <th class="cell_header" width="12%">
+            <th class="cell_header" style="width: 12%">
                 Offer end date
             </th>
 
-            <th class="cell_header" width="10%">
+            <th class="cell_header" style="width: 10%">
                 Status
             </th>
 
@@ -83,7 +83,7 @@
 
                 <td class="cell">
                     <label for="sale">
-                        <input class="adding_input" id="sale" maxlength="20" minlength="3"
+                        <input class="adding_input adding_input_width" id="sale" maxlength="20" minlength="3"
                                placeholder="Product"
                                name="sale" pattern="^[a-zA-Z0-9_-№:,<>/-\s]{3,20}$"
                                required title="Use 3-20 Latin characters."
@@ -102,38 +102,39 @@
                 <td class="cell">${sessionScope.loggedUser.fullName}</td>
 
                 <td class="cell">
-                    <label for="startprice"><input class="adding_input" id="startprice"
+                    <label for="startprice"><input class="adding_input start_price_width" id="startprice"
                                                    maxlength="7"
                                                    minlength="1" name="startprice"
                                                    placeholder="Startprice"
                                                    pattern="^\d+(,\d{3})*(\.\d{1,2})?$"
                                                    required
                                                    title="Enter the amount in the format: 999(.99)"
-                                                   type="text"/>
+                                                   type="text"/><span class="cell_header">$</span>
                     </label>
                 </td>
 
                 <td class="cell">
-                    <label for="end_date"><input class="adding_input" id="end_date"
-                                                 name="end_date" required
+                    <label for="end_date"><input class="adding_input adding_input_width" id="end_date"
+                                                 name="end_date" required value="${requestScope.currentDate}"
                                                  type="date" title="Select offer end date."/>
                     </label>
                 </td>
 
                 <td class="cell">
                     <label>
-                        <select class="adding_input" name="status" required title="Select status.">
+                        <select class="adding_input adding_input_width" name="status" required title="Select status.">
                             <option selected>At auction</option>
                             <option>Sold</option>
                         </select>
                     </label>
                 </td>
 
-        <tfoot>
+        <tfoot style="text-align: center">
         <tr>
             <td colspan="6">
                 <button class="adding_button" type="reset">Reset</button>
                 <button class="adding_button" type="submit" id="dataSendButton">Confirm</button>
+                <a class="cancel_href" href="my_products">Cancel</a>
             </td>
         </tr>
         </tfoot>

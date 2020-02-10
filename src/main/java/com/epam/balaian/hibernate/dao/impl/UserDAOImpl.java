@@ -55,14 +55,13 @@ public class UserDAOImpl implements UserDAO {
   public User getUserByLoginName(String loginName) {
     SessionTerminal.openSessionAndTransaction();
 
-    try{
-    return SessionTerminal.FACTORY
-        .getCurrentSession()
-        .createQuery(
-            "from User where loginName =:login_param", User.class)
-        .setParameter("login_param", loginName)
-        .uniqueResult();
-    }finally{
+    try {
+      return SessionTerminal.FACTORY
+          .getCurrentSession()
+          .createQuery("from User where loginName =:login_param", User.class)
+          .setParameter("login_param", loginName)
+          .uniqueResult();
+    } finally {
       SessionTerminal.closeSessionAndTransaction();
     }
   }
